@@ -1,0 +1,8 @@
+plugins {
+    id 'groovy'
+}
+
+dependencies {
+    implementation "org.codehaus.groovy:groovy:${groovyVersion}"
+    implementation "org.spockframework:spock-core:${spockVersion}"
+}
