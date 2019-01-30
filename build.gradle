@@ -69,6 +69,7 @@ subprojects { Project subproject ->
 
     checkstyle {
         configFile = rootProject.file('config/checkstyle/checkstyle.xml')
+        toolVersion = '6.19'
     }
 
     codenarc {
