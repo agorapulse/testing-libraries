@@ -1,0 +1,10 @@
+plugins {
+    id 'groovy'
+}
+
+dependencies {
+    implementation "org.codehaus.groovy:groovy:${groovyVersion}"
+    implementation "junit:junit:${junitVersion}"
+    testImplementation "org.spockframework:spock-core:${spockVersion}"
+    testImplementation 'com.github.stefanbirkner:system-rules:1.19.0'
+}
