@@ -2,10 +2,7 @@ package com.agorapulse.testing.spock;
 
 /**
  * Excludes the feature methods declared in any parent specification.
- *
- * @author Vladimir Orany
  */
-
 import org.spockframework.runtime.extension.ExtensionAnnotation;
 
 import java.lang.annotation.ElementType;
