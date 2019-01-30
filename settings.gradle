@@ -1,0 +1,5 @@
+rootProject.name = 'testing-libraries'
+
+include 'fixt'
+include 'office-unit'
+include 'spock'
