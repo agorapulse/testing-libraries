@@ -1,5 +1,6 @@
 rootProject.name = 'testing-libraries'
 
 include 'fixt'
+include 'grails-job-testing-support'
 include 'office-unit'
 include 'spock'

@@ -1,0 +1,155 @@
+{
+  "id": "11",
+  "createdByManager": {
+    "id": "101495",
+    "facebookId": "100002082369117",
+    "facebookPictureUrl": "http://graph.facebook.com/100002082369117/picture?type=square",
+    "facebookPictureSecureUrl": "https://graph.facebook.com/100002082369117/picture?height=100&width=100&return_ssl_resources=1",
+    "fullName": "Chloée Dupont"
+  },
+  "hasDiamondPlan": false,
+  "initialized": true,
+  "itemsSyncDate": "2017-07-21T12:36:58Z",
+  "locale": "en_US",
+  "maxAdminCount": 32,
+  "maxAdminCountReached": false,
+  "name": "Agorapulse Beta",
+  "plan": {
+    "id": "50",
+    "annualPayment": false,
+    "code": "x-large",
+    "competitorEnabled": true,
+    "enterpriseEnabled": false,
+    "isLegacy": false,
+    "maxAccountCount": 40,
+    "maxAdCampaignCount": 100,
+    "maxAdPerCampaignCount": 100,
+    "maxAdminCount": 12,
+    "maxCompetitorCount": 1,
+    "maxFanCount": 2000000,
+    "maxPageCount": 40,
+    "maxInstagramItemCount": 100000,
+    "maxTwitterItemCount": 100000,
+    "maxYoutubeItemCount": 100000,
+    "name": "enterprise",
+    "priceEUR": 299,
+    "priceUSD": 299,
+    "profileAddOnPrice": 6,
+    "reportEnabled": true,
+    "reportLimited": false,
+    "rtuEnabled": true,
+    "searchEnabled": true,
+    "syncDataRetentionMonthCount": 9,
+    "syncWaitMinuteCount": 5,
+    "userEnabled": true
+  },
+  "planEnabled": true,
+  "profileImageUrl": "https://media.licdn.com/mpr/mpr/AAIA_wDGAAAAAQAAAAAAAAnFAAAAJDFmOWNjYTRmLTgwZTgtNDg0Yi05YjQxLTE1ZjdlYWU1NjIwOA.png",
+  "service": "linkedin",
+  "serviceId": "10685458",
+  "tokenValid": true,
+  "trialCount": 1,
+  "trialEnabled": false,
+  "trialByManager": {
+    "id": "101495",
+    "facebookId": "100002082369117",
+    "facebookPictureUrl": "http://graph.facebook.com/100002082369117/picture?type=square",
+    "facebookPictureSecureUrl": "https://graph.facebook.com/100002082369117/picture?height=100&width=100&return_ssl_resources=1",
+    "fullName": "Chloée Dupont"
+  },
+  "trialEndDate": null,
+  "uid": "linkedin_11",
+  "linkedinId": "10685458",
+  "mediaCount": 0,
+  "typeId": 1,
+  "url": "https://www.linkedin.com/company/10685458",
+  "managers": [
+    {
+      "account": {
+        "id": "11",
+        "name": "Agorapulse Beta",
+        "profileImageUrl": "https://media.licdn.com/mpr/mpr/AAIA_wDGAAAAAQAAAAAAAAnFAAAAJDFmOWNjYTRmLTgwZTgtNDg0Yi05YjQxLTE1ZjdlYWU1NjIwOA.png",
+        "service": "linkedin",
+        "serviceId": "10685458",
+        "uid": "linkedin_11"
+      },
+      "id": "28",
+      "lastVisitDate": "2017-03-09T13:06:20Z",
+      "manager": {
+        "id": "101495",
+        "facebookId": "100002082369117",
+        "facebookPictureUrl": "http://graph.facebook.com/100002082369117/picture?type=square",
+        "facebookPictureSecureUrl": "https://graph.facebook.com/100002082369117/picture?height=100&width=100&return_ssl_resources=1",
+        "fullName": "Chloée Dupont"
+      },
+      "role": "admin"
+    },
+    {
+      "account": {
+        "id": "11",
+        "name": "Agorapulse Beta",
+        "profileImageUrl": "https://media.licdn.com/mpr/mpr/AAIA_wDGAAAAAQAAAAAAAAnFAAAAJDFmOWNjYTRmLTgwZTgtNDg0Yi05YjQxLTE1ZjdlYWU1NjIwOA.png",
+        "service": "linkedin",
+        "serviceId": "10685458",
+        "uid": "linkedin_11"
+      },
+      "id": "29",
+      "lastVisitDate": "2017-04-14T14:24:39Z",
+      "manager": {
+        "id": "97158",
+        "facebookId": "767804357",
+        "facebookPictureUrl": "http://graph.facebook.com/767804357/picture?type=square",
+        "facebookPictureSecureUrl": "https://graph.facebook.com/767804357/picture?height=100&width=100&return_ssl_resources=1",
+        "fullName": "Kristell Cormarie"
+      },
+      "role": "editor"
+    },
+    {
+      "account": {
+        "id": "11",
+        "name": "Agorapulse Beta",
+        "profileImageUrl": "https://media.licdn.com/mpr/mpr/AAIA_wDGAAAAAQAAAAAAAAnFAAAAJDFmOWNjYTRmLTgwZTgtNDg0Yi05YjQxLTE1ZjdlYWU1NjIwOA.png",
+        "service": "linkedin",
+        "serviceId": "10685458",
+        "uid": "linkedin_11"
+      },
+      "id": "66",
+      "lastVisitDate": "2017-09-30T11:26:59Z",
+      "manager": {
+        "id": "101472",
+        "facebookId": "714495543",
+        "facebookPictureUrl": "http://graph.facebook.com/714495543/picture?type=square",
+        "facebookPictureSecureUrl": "https://graph.facebook.com/714495543/picture?height=100&width=100&return_ssl_resources=1",
+        "fullName": "Jean-Vincent Drean"
+      },
+      "role": "moderator"
+    },
+    {
+      "account": {
+        "id": "11",
+        "name": "Agorapulse Beta",
+        "profileImageUrl": "https://media.licdn.com/mpr/mpr/AAIA_wDGAAAAAQAAAAAAAAnFAAAAJDFmOWNjYTRmLTgwZTgtNDg0Yi05YjQxLTE1ZjdlYWU1NjIwOA.png",
+        "service": "linkedin",
+        "serviceId": "10685458",
+        "uid": "linkedin_11"
+      },
+      "id": "73",
+      "lastVisitDate": "2017-11-02T10:29:46Z",
+      "manager": {
+        "id": "109098",
+        "facebookId": "10210893701245959",
+        "facebookPictureUrl": "http://graph.facebook.com/10210893701245959/picture?type=square",
+        "facebookPictureSecureUrl": "https://graph.facebook.com/10210893701245959/picture?height=100&width=100&return_ssl_resources=1",
+        "fullName": "Vladimír Oraný"
+      },
+      "role": "guest"
+    }
+  ],
+  "counters": {
+    "totalCount": 2,
+    "publishing": {
+      "unreviewed": 2,
+      "assigned": 0
+    }
+  }
+}

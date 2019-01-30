@@ -1,0 +1,11 @@
+plugins {
+    id 'groovy'
+}
+
+dependencies {
+    implementation 'org.xmlunit:xmlunit-core:2.6.2'
+    implementation 'org.slf4j:slf4j-api:1.7.25'
+    implementation "junit:junit:${junitVersion}"
+    testImplementation "org.spockframework:spock-core:${spockVersion}"
+}
+

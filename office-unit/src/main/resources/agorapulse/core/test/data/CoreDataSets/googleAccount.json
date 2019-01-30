@@ -1,0 +1,154 @@
+{
+  "id": "3",
+  "createdByManager": {
+    "id": "97155",
+    "facebookId": "727505662",
+    "facebookPictureUrl": "http://graph.facebook.com/727505662/picture?type=square",
+    "facebookPictureSecureUrl": "https://graph.facebook.com/727505662/picture?height=100&width=100&return_ssl_resources=1",
+    "fullName": "Florian Ernoult"
+  },
+  "hasDiamondPlan": false,
+  "initialized": true,
+  "itemsSyncDate": "2017-07-21T12:36:58Z",
+  "locale": "en_US",
+  "maxAdminCount": 3,
+  "maxAdminCountReached": true,
+  "name": "Agorapulse Beta",
+  "plan": {
+    "id": "46",
+    "annualPayment": false,
+    "code": "medium",
+    "competitorEnabled": true,
+    "enterpriseEnabled": false,
+    "isLegacy": false,
+    "maxAccountCount": 10,
+    "maxAdCampaignCount": 10,
+    "maxAdPerCampaignCount": 10,
+    "maxAdminCount": 3,
+    "maxCompetitorCount": 1,
+    "maxFanCount": 150000,
+    "maxPageCount": 10,
+    "maxInstagramItemCount": 100000,
+    "maxTwitterItemCount": 100000,
+    "maxYoutubeItemCount": 100000,
+    "name": "medium",
+    "priceEUR": 99,
+    "priceUSD": 99,
+    "profileAddOnPrice": 12,
+    "reportEnabled": true,
+    "reportLimited": false,
+    "rtuEnabled": true,
+    "searchEnabled": true,
+    "syncDataRetentionMonthCount": 6,
+    "syncWaitMinuteCount": 5,
+    "userEnabled": true
+  },
+  "planEnabled": true,
+  "profileImageUrl": "https://lh3.googleusercontent.com/-17i4MA9PN4Q/AAAAAAAAAAI/AAAAAAAAAAs/TMbj24Cnjrs/photo.jpg?sz=50",
+  "service": "google",
+  "serviceId": "114806397584680904177",
+  "tokenValid": true,
+  "trialCount": 0,
+  "trialEnabled": false,
+  "trialByManager": {
+    "id": "97154",
+    "facebookId": "594317994",
+    "facebookPictureUrl": "http://graph.facebook.com/594317994/picture?type=square",
+    "facebookPictureSecureUrl": "https://graph.facebook.com/594317994/picture?height=100&width=100&return_ssl_resources=1",
+    "fullName": "Benoit Hédiard"
+  },
+  "trialEndDate": "2017-11-17T10:38:44Z",
+  "uid": "google_3",
+  "googleId": "114806397584680904177",
+  "mediaCount": 0,
+  "url": "https://plus.google.com/114806397584680904177",
+  "managers": [
+    {
+      "account": {
+        "id": "3",
+        "name": "Agorapulse Beta",
+        "profileImageUrl": "https://lh3.googleusercontent.com/-17i4MA9PN4Q/AAAAAAAAAAI/AAAAAAAAAAs/TMbj24Cnjrs/photo.jpg?sz=50",
+        "service": "google",
+        "serviceId": "114806397584680904177",
+        "uid": "google_3"
+      },
+      "id": "4",
+      "lastVisitDate": "2016-12-08T11:17:41Z",
+      "manager": {
+        "id": "97155",
+        "facebookId": "727505662",
+        "facebookPictureUrl": "http://graph.facebook.com/727505662/picture?type=square",
+        "facebookPictureSecureUrl": "https://graph.facebook.com/727505662/picture?height=100&width=100&return_ssl_resources=1",
+        "fullName": "Florian Ernoult"
+      },
+      "role": "admin"
+    },
+    {
+      "account": {
+        "id": "3",
+        "name": "Agorapulse Beta",
+        "profileImageUrl": "https://lh3.googleusercontent.com/-17i4MA9PN4Q/AAAAAAAAAAI/AAAAAAAAAAs/TMbj24Cnjrs/photo.jpg?sz=50",
+        "service": "google",
+        "serviceId": "114806397584680904177",
+        "uid": "google_3"
+      },
+      "id": "6",
+      "lastVisitDate": "2017-09-07T10:21:37Z",
+      "manager": {
+        "id": "101472",
+        "facebookId": "714495543",
+        "facebookPictureUrl": "http://graph.facebook.com/714495543/picture?type=square",
+        "facebookPictureSecureUrl": "https://graph.facebook.com/714495543/picture?height=100&width=100&return_ssl_resources=1",
+        "fullName": "Jean-Vincent Drean"
+      },
+      "role": "editor"
+    },
+    {
+      "account": {
+        "id": "3",
+        "name": "Agorapulse Beta",
+        "profileImageUrl": "https://lh3.googleusercontent.com/-17i4MA9PN4Q/AAAAAAAAAAI/AAAAAAAAAAs/TMbj24Cnjrs/photo.jpg?sz=50",
+        "service": "google",
+        "serviceId": "114806397584680904177",
+        "uid": "google_3"
+      },
+      "id": "7",
+      "lastVisitDate": "2017-07-11T08:43:25Z",
+      "manager": {
+        "id": "97177",
+        "facebookId": "100003109760136",
+        "facebookPictureUrl": "http://graph.facebook.com/100003109760136/picture?type=square",
+        "facebookPictureSecureUrl": "https://graph.facebook.com/100003109760136/picture?height=100&width=100&return_ssl_resources=1",
+        "fullName": "Sébastien Gendreau"
+      },
+      "role": "moderator"
+    },
+    {
+      "account": {
+        "id": "3",
+        "name": "Agorapulse Beta",
+        "profileImageUrl": "https://lh3.googleusercontent.com/-17i4MA9PN4Q/AAAAAAAAAAI/AAAAAAAAAAs/TMbj24Cnjrs/photo.jpg?sz=50",
+        "service": "google",
+        "serviceId": "114806397584680904177",
+        "uid": "google_3"
+      },
+      "id": "8",
+      "lastVisitDate": "2017-07-07T13:42:36Z",
+      "manager": {
+        "id": "97240",
+        "facebookId": "100003687382792",
+        "facebookPictureUrl": "http://graph.facebook.com/100003687382792/picture?type=square",
+        "facebookPictureSecureUrl": "https://graph.facebook.com/100003687382792/picture?height=100&width=100&return_ssl_resources=1",
+        "fullName": "Florian Pulse"
+      },
+      "role": "guest"
+    }
+  ],
+  "counters": {
+    "totalCount": 9,
+    "publishing": {
+      "unreviewed": 9,
+      "assigned": 0
+    }
+  }
+}

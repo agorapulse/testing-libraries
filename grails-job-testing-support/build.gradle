@@ -1,0 +1,9 @@
+plugins {
+    id 'groovy'
+}
+
+dependencies {
+    compile "org.codehaus.groovy:groovy:${groovyVersion}"
+    compile "org.grails:grails-testing-support:1.1.5"
+    compile "org.grails.plugins:quartz:1.0.2"
+}

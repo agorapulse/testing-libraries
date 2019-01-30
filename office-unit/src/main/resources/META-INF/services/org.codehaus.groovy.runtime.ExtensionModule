@@ -1,0 +1,4 @@
+moduleName = agorapulse-core-testing-support
+moduleVersion = 6.0
+extensionClasses = agorapulse.core.test.controller.AgorapulseCoreGruExtensions
+staticExtensionClasses = agorapulse.core.test.controller.AgorapulseCoreGruStaticExtensions
