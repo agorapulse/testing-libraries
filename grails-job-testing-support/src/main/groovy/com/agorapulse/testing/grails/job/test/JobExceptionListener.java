@@ -1,4 +1,4 @@
-package com.agorapulse.quartz.test;
+package com.agorapulse.testing.grails.job.test;
 
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
