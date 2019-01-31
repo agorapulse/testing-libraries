@@ -14,6 +14,9 @@ subprojects { Project subproject ->
     apply plugin: 'checkstyle'
     apply plugin: 'codenarc'
 
+    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_1_8
+
     test {
         testLogging {
             events "PASSED", "STARTED", "FAILED", "SKIPPED", "STANDARD_ERROR", "STANDARD_OUT"

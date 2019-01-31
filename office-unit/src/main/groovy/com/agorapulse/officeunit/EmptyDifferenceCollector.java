@@ -12,12 +12,18 @@ public enum EmptyDifferenceCollector implements DifferenceCollector {
 
     INSTANCE;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DifferenceCollector.class);
+
     @Override
     public List<DocumentDifference> computeDifferences(String path, InputStream actualStream, InputStream expectedStream, Set<String> ignored) {
-        Logger log = LoggerFactory.getLogger(DifferenceCollector.class);
-        if (log.isInfoEnabled()) {
-            log.info("Skipping {}", path);
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Skipping {}", path);
         }
         return Collections.emptyList();
+    }
+
+    @Override
+    public String toString() {
+        return "No difference";
     }
 }

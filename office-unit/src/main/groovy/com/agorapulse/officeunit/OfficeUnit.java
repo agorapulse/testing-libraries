@@ -1,7 +1,5 @@
 package com.agorapulse.officeunit;
 
-import com.google.common.collect.ImmutableMap;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,26 +8,23 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
-import static com.google.common.base.Preconditions.checkState;
-
 public class OfficeUnit {
 
     private static final Set<String> DEFAULT_IGNORED = new HashSet<>();
 
-    private static final ImmutableMap<String, DifferenceCollector> COLLECTORS = ImmutableMap.<String, DifferenceCollector>builder()
-            .put("xml", XmlDifferenceCollector.INSTANCE)
-            .put("ref", XmlDifferenceCollector.INSTANCE)
-            .put("png", BinaryDifferenceCollector.INSTANCE)
-            .put("jpg", BinaryDifferenceCollector.INSTANCE)
-            .put("jpeg", BinaryDifferenceCollector.INSTANCE)
-            .put("bin", BinaryDifferenceCollector.INSTANCE)
-            .put("pptx", OfficeUnitDifferenceCollector.INSTANCE)
-            .put("xlsx", OfficeUnitDifferenceCollector.INSTANCE)
-            .build();
+    private static final Map<String, DifferenceCollector> COLLECTORS = new HashMap<>();
 
     static {
         DEFAULT_IGNORED.add("/modified[1]/text()[1]");
         DEFAULT_IGNORED.add("/created[1]/text()[1]");
+        COLLECTORS.put("xml", XmlDifferenceCollector.INSTANCE);
+        COLLECTORS.put("ref", XmlDifferenceCollector.INSTANCE);
+        COLLECTORS.put("png", BinaryDifferenceCollector.INSTANCE);
+        COLLECTORS.put("jpg", BinaryDifferenceCollector.INSTANCE);
+        COLLECTORS.put("jpeg", BinaryDifferenceCollector.INSTANCE);
+        COLLECTORS.put("bin", BinaryDifferenceCollector.INSTANCE);
+        COLLECTORS.put("pptx", OfficeUnitDifferenceCollector.INSTANCE);
+        COLLECTORS.put("xlsx", OfficeUnitDifferenceCollector.INSTANCE);
     }
 
     private final String prefix;
@@ -42,6 +37,10 @@ public class OfficeUnit {
 
     public OfficeUnit() {
         this("", DEFAULT_IGNORED);
+    }
+
+    public Set<String> getIgnored() {
+        return Collections.unmodifiableSet(ignored);
     }
 
     public List<DocumentDifference> compare(File actual, File expected) throws IOException {
@@ -57,31 +56,34 @@ public class OfficeUnit {
 
             while (actualEntries.hasMoreElements()) {
                 ZipEntry actualEntry = actualEntries.nextElement();
-                if (actualEntry.isDirectory()) {
-                    continue;
+                if (!actualEntry.isDirectory()) {
+                    ZipEntry other = expectedZip.getEntry(actualEntry.getName());
+
+                    if (other == null) {
+                        differences.add(new SimpleDocumentDifference(actualEntry.getName()));
+                        continue;
+                    }
+
+                    String path = other.getName();
+
+                    InputStream actualStream = actualZip.getInputStream(actualEntry);
+                    InputStream expectedStream = expectedZip.getInputStream(other);
+
+                    String ext = path.substring(path.lastIndexOf('.') + 1, path.length());
+
+                    differences.addAll(COLLECTORS.getOrDefault(ext, EmptyDifferenceCollector.INSTANCE).computeDifferences(prefix + "/" + path, actualStream, expectedStream, ignored));
                 }
-
-                ZipEntry other = expectedZip.getEntry(actualEntry.getName());
-
-                if (other == null) {
-                    differences.add(new SimpleDocumentDifference(actualEntry.getName()));
-                    continue;
-                }
-
-                String path = other.getName();
-
-                InputStream actualStream = actualZip.getInputStream(actualEntry);
-                InputStream expectedStream = expectedZip.getInputStream(other);
-
-                String ext = path.substring(path.lastIndexOf('.') + 1, path.length());
-
-                differences.addAll(COLLECTORS.getOrDefault(ext, EmptyDifferenceCollector.INSTANCE).computeDifferences(prefix + "/" + path, actualStream, expectedStream, ignored));
-
             }
 
             return differences;
-        } catch(ZipException e) {
+        } catch (ZipException e) {
             throw new IllegalArgumentException("Error processing differences for files: " + actual.getCanonicalPath() + " and " + expected.getCanonicalPath(), e);
+        }
+    }
+
+    private static void checkState(boolean condition, String errorMessage) {
+        if (!condition) {
+            throw new IllegalStateException(errorMessage);
         }
     }
 }

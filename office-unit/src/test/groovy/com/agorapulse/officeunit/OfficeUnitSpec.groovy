@@ -19,14 +19,53 @@ import spock.lang.Unroll
 
     void '#differencesCount difference(s): #control with #test'() {
         expect:
-            new OfficeUnit().compare(
+            OfficeUnit officeUnit = new OfficeUnit()
+
+            officeUnit.compare(
                     loadFile(control),
                     loadFile(test)
             ).size() == differencesCount
+
+            OfficeUnitDifferenceCollector.INSTANCE.computeDifferences(
+                "/nested/$control",
+                loadFile(control).newInputStream(),
+                loadFile(test).newInputStream(),
+                officeUnit.ignored
+            ).size() == differencesCount
+
         where:
             control         | test              | differencesCount
             'test1.xlsx'    | 'test3.xlsx'      | 1
             'test1.xlsx'    | 'test4.xlsx'      | 8
+            'test1.xlsx'    | 'test5.xlsx'      | 159
+            'test1.pptx'    | 'test3.pptx'      | 2469
+    }
+
+    void 'xml difference is readable'() {
+        expect:
+            OfficeUnit officeUnit = new OfficeUnit()
+
+            officeUnit.compare(
+                loadFile('test1.xlsx'),
+                loadFile('test3.xlsx')
+            ).first().toString().startsWith('Path: /xl/sharedStrings.xml')
+    }
+
+    void 'file must exist'() {
+        when:
+            new OfficeUnit().compare(new File('no-such.file'), new File('noting.here'))
+        then:
+            thrown(IllegalStateException)
+    }
+
+    void 'file must be archive'() {
+        when:
+            new OfficeUnit().compare(
+                loadFile('test1.xlsx'),
+                loadFile('not-a.zip')
+            )
+        then:
+            thrown(IllegalArgumentException)
     }
 
     private static File loadFile(String name) {
