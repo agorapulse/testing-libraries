@@ -4,24 +4,23 @@
 image::ribbon.png[link={projectUrl}]
 
 --
-image::https://api.bintray.com/packages/agorapulse/libs/micronaut-http-server-basic/images/download.svg[link="https://bintray.com/agorapulse/libs/micronaut-http-server-basic/_latestVersion",float="left"]
-image::https://travis-ci.org/agorapulse/micronaut-libraries.svg?branch=master["Build Status", link="https://travis-ci.org/agorapulse/micronaut-libraries"float="left"]
-image::https://coveralls.io/repos/github/agorapulse/micronaut-libraries/badge.svg?branch=master[link=https://coveralls.io/github/agorapulse/micronaut-libraries?branch=master",float="left"]
+image::https://api.bintray.com/packages/agorapulse/libs/fixt/images/download.svg[link="https://bintray.com/agorapulse/libs/fixt/_latestVersion",float="left"]
+image::https://travis-ci.org/agorapulse/testing-libraries.svg?branch=master["Build Status", link="https://travis-ci.org/agorapulse/testing-libraries"float="left"]
+image::https://coveralls.io/repos/github/agorapulse/testing-libraries/badge.svg?branch=master[link=https://coveralls.io/github/agorapulse/testing-libraries?branch=master",float="left"]
 --
 
 ---
 
-Set of useful libraries for http://micronaut.io[Micronaut]. All the libraries are available in https://bintray.com/bintray/jcenter[JCenter Maven repository].
+Set of useful test utilities. All the libraries are available in https://bintray.com/bintray/jcenter[JCenter Maven repository].
 
- * <<AWS SDK for Micronaut>> - integration for <<DynamoDB>>, <<Kinesis>>, <<Simple Storage Service (S3)>>, <<Simple Email Service (SES)>>, <<Simple Notification Service (SNS)>>,  <<Simple Queue Service (SQS)>> and <<WebSockets for API Gateway>>
- * <<Micronaut for API Gateway Proxy>> - develop API Gateway Proxy Lambda functions using Micronaut HTTP server capabilities
- * <<Micronaut Grails>> - publish your Micronaut beans into Spring application context
+== Fixt
 
-include::aws.adoc[]
+Fixt helps organize fixtures for your fixtures in a directories with the same name as your test class.
 
-include::api-proxy.adoc[]
+Given a test residing in `src/test/java` or `src/test/groovy` with name `org.example.MyTest` then
+the fixtures' location will `src/test/resources/org/example/MyTest` keeping all the files for given test in a single folder.
 
-include::grails.adoc[]
+
 
 == Maintained by
 
