@@ -7,12 +7,14 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.grails.plugins:quartz:2.0.13'
-    implementation "org.codehaus.groovy:groovy:${groovyVersion}"
-    implementation 'org.grails:grails-testing-support:1.1.5'
-    implementation 'org.grails:grails-gorm-testing-support:1.1.5'
-    implementation 'org.grails:grails-datastore-gorm-support:6.1.9.RELEASE'
-    implementation 'org.quartz-scheduler:quartz:2.2.3'
-    implementation 'org.springframework:spring-context-support:4.3.22.RELEASE'
-    implementation "org.spockframework:spock-core:${spockVersion}"
+    compile 'org.grails.plugins:quartz:2.0.13'
+    compile 'org.grails:grails-core:3.3.9'
+    compile "org.codehaus.groovy:groovy:${groovyVersion}"
+    compile 'org.grails:grails-testing-support:1.1.5'
+    compile 'org.grails:grails-gorm-testing-support:1.1.5'
+    compile 'org.grails:grails-datastore-gorm-support:6.1.9.RELEASE'
+    compile 'org.quartz-scheduler:quartz:2.2.3'
+    compile 'org.springframework:spring-beans:4.3.22.RELEASE'
+    compile 'org.springframework:spring-context-support:4.3.22.RELEASE'
+    compile "org.spockframework:spock-core:${spockVersion}"
 }

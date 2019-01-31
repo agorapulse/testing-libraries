@@ -1,12 +1,12 @@
-package com.agorapulse.testing.grails.job.test;
+package com.agorapulse.testing.grails.job;
 
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.quartz.JobListener;
+import org.quartz.listeners.JobListenerSupport;
 
 import java.util.function.Consumer;
 
-public class JobExceptionListener implements JobListener {
+public class JobExceptionListener extends JobListenerSupport {
 
     private final Consumer<JobExecutionException> finished;
 
@@ -17,16 +17,6 @@ public class JobExceptionListener implements JobListener {
     @Override
     public String getName() {
         return getClass().getName();
-    }
-
-    @Override
-    public void jobToBeExecuted(JobExecutionContext context) {
-        // do nothing
-    }
-
-    @Override
-    public void jobExecutionVetoed(JobExecutionContext context) {
-        // do nothing
     }
 
     @Override

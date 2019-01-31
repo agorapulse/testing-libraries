@@ -1,4 +1,4 @@
-package com.agorapulse.testing.grails.job.test
+package com.agorapulse.testing.grails.job
 
 import grails.plugins.quartz.GrailsJobClass
 import grails.plugins.quartz.JobDetailFactoryBean
@@ -6,6 +6,7 @@ import grails.plugins.quartz.GrailsJobFactory
 import grails.plugins.quartz.DefaultGrailsJobClass
 import grails.plugins.quartz.CustomTriggerFactoryBean
 import grails.plugins.quartz.listeners.SessionBinderJobListener
+import grails.testing.gorm.DataTest
 import groovy.transform.CompileDynamic
 import groovy.transform.CompileStatic
 import org.grails.datastore.gorm.support.DatastorePersistenceContextInterceptor
@@ -24,7 +25,7 @@ import spock.util.concurrent.BlockingVariable
 import java.util.concurrent.TimeUnit
 
 @CompileStatic
-trait JobUnitTest<J> extends ParameterizedGrailsUnitTest<J> {
+trait JobUnitTest<J> implements ParameterizedGrailsUnitTest<J>, DataTest {
 
     @SuppressWarnings('FieldName')
     private GrailsJobClass _jobClass
