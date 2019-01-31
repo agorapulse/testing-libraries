@@ -8,4 +8,5 @@ class SimpleDocumentDifferenceSpec extends Specification {
         expect:
             new SimpleDocumentDifference('/some/path').toString() == 'Difference found: /some/path'
     }
+
 }

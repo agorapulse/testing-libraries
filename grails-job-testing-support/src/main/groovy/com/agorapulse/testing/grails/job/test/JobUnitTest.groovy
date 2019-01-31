@@ -1,12 +1,22 @@
 package com.agorapulse.testing.grails.job.test
 
-import grails.plugins.quartz.*
+import grails.plugins.quartz.GrailsJobClass
+import grails.plugins.quartz.JobDetailFactoryBean
+import grails.plugins.quartz.GrailsJobFactory
+import grails.plugins.quartz.DefaultGrailsJobClass
+import grails.plugins.quartz.CustomTriggerFactoryBean
 import grails.plugins.quartz.listeners.SessionBinderJobListener
 import groovy.transform.CompileDynamic
 import groovy.transform.CompileStatic
 import org.grails.datastore.gorm.support.DatastorePersistenceContextInterceptor
 import org.grails.testing.ParameterizedGrailsUnitTest
-import org.quartz.*
+import org.quartz.Scheduler
+import org.quartz.JobExecutionException
+import org.quartz.SchedulerFactory
+import org.quartz.Trigger
+import org.quartz.JobKey
+import org.quartz.ListenerManager
+import org.quartz.JobDetail
 import org.quartz.impl.StdSchedulerFactory
 import org.quartz.impl.matchers.KeyMatcher
 import spock.util.concurrent.BlockingVariable
@@ -16,7 +26,10 @@ import java.util.concurrent.TimeUnit
 @CompileStatic
 trait JobUnitTest<J> extends ParameterizedGrailsUnitTest<J> {
 
+    @SuppressWarnings('FieldName')
     private GrailsJobClass _jobClass
+
+    @SuppressWarnings('FieldName')
     private List<Trigger> _triggers
 
     J getJob() {
@@ -111,12 +124,13 @@ trait JobUnitTest<J> extends ParameterizedGrailsUnitTest<J> {
             }
         }
         SessionBinderJobListener listener = applicationContext.getBean(SessionBinderJobListener)
-        ListenerManager listenerManager = scheduler.getListenerManager()
+        ListenerManager listenerManager = scheduler.listenerManager
         KeyMatcher<JobKey> matcher = KeyMatcher.keyEquals(jobDetail.key)
-        if (listenerManager.getJobListener(listener.getName()) == null) {
+        if (listenerManager.getJobListener(listener.name) == null) {
             listenerManager.addJobListener(listener, matcher)
         } else {
-            listenerManager.addJobListenerMatcher(listener.getName(), matcher)
+            listenerManager.addJobListenerMatcher(listener.name, matcher)
         }
     }
+
 }
