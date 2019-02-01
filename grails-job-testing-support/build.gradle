@@ -18,3 +18,5 @@ dependencies {
     compile 'org.springframework:spring-context-support:4.3.22.RELEASE'
     compile "org.spockframework:spock-core:${spockVersion}"
 }
+
+apply from: '../gradle/bintray.gradle'

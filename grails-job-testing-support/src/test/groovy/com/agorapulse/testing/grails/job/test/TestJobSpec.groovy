@@ -4,6 +4,7 @@ import com.agorapulse.testing.grails.job.JobUnitTest
 import org.quartz.SimpleTrigger
 import spock.lang.Specification
 
+@SuppressWarnings('ClassStartsWithBlankLine')
 class TestJobSpec extends Specification implements JobUnitTest<TestJob> {               // <1>
 
     Runnable mock = Mock(Runnable)

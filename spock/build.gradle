@@ -6,3 +6,5 @@ dependencies {
     implementation "org.codehaus.groovy:groovy:${groovyVersion}"
     implementation "org.spockframework:spock-core:${spockVersion}"
 }
+
+apply from: '../gradle/bintray.gradle'
