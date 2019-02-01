@@ -1,4 +1,4 @@
-package com.agorapulse.officeunit;
+package com.agorapulse.testing.officeunit;
 
 import org.xmlunit.diff.Difference;
 

@@ -1,4 +1,4 @@
-package com.agorapulse.officeunit;
+package com.agorapulse.testing.officeunit;
 
 class SimpleDocumentDifference implements DocumentDifference {
     private final String path;

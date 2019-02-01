@@ -1,4 +1,4 @@
-package com.agorapulse.officeunit;
+package com.agorapulse.testing.officeunit;
 
 import java.io.File;
 import java.io.IOException;

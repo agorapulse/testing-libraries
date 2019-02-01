@@ -1,4 +1,4 @@
-import com.agorapulse.fixt.Fixt
+import com.agorapulse.testing.fixt.Fixt
 import org.junit.ClassRule
 import org.junit.Rule
 import org.junit.contrib.java.lang.system.EnvironmentVariables

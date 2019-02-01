@@ -68,7 +68,7 @@ dependencies {
 [source,groovy,indent=0,options="nowrap"]
 .Example Specification
 ----
-include::../fixt/src/test/groovy/com/agorapulse/fixt/FixtSpec.groovy[]
+include::../fixt/src/test/groovy/com/agorapulse/testing/fixt/FixtSpec.groovy[]
 ----
 <1> Declare `Fixt` rule for the specification class
 <2> Read the content of the file as stream
@@ -157,11 +157,11 @@ dependencies {
 [source,groovy,indent=0,options="nowrap"]
 .Example Specification
 ----
-include::../office-unit/src/test/groovy/com/agorapulse/officeunit/OfficeUnitSpec.groovy[tag=differences]
+include::../office-unit/src/test/groovy/com/agorapulse/testing/officeunit/OfficeUnitSpec.groovy[tag=differences]
 
-include::../office-unit/src/test/groovy/com/agorapulse/officeunit/OfficeUnitSpec.groovy[tag=differences-count]
+include::../office-unit/src/test/groovy/com/agorapulse/testing/officeunit/OfficeUnitSpec.groovy[tag=differences-count]
 
-include::../office-unit/src/test/groovy/com/agorapulse/officeunit/OfficeUnitSpec.groovy[tag=ignore]
+include::../office-unit/src/test/groovy/com/agorapulse/testing/officeunit/OfficeUnitSpec.groovy[tag=ignore]
 ----
 <1> Compare two Microsoft Office files and expect no difference
 <2> Expect some differences

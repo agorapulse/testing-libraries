@@ -1,4 +1,4 @@
-package com.agorapulse.fixt
+package com.agorapulse.testing.fixt
 
 import org.junit.Rule
 import org.junit.rules.TemporaryFolder
@@ -41,7 +41,7 @@ class FixtSpec extends Specification {
             fixt.writeStream(STREAM_FILE, stream)                                       // <6>
             fixt.writeText(TEXT_FILE, TEXT_CONTENT)                                     // <7>
 
-            File contextTestFolder = new File(testResources, 'com/agorapulse/fixt/ReferenceClass')
+            File contextTestFolder = new File(testResources, 'com/agorapulse/testing/fixt/ReferenceClass')
         then:
             contextTestFolder.exists()
             new File(contextTestFolder, STREAM_FILE).text == STREAM_CONTENT

@@ -1,4 +1,4 @@
-package com.agorapulse.officeunit;
+package com.agorapulse.testing.officeunit;
 
 import org.xmlunit.builder.DiffBuilder;
 import org.xmlunit.builder.Input;

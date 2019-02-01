@@ -1,4 +1,4 @@
-package com.agorapulse.fixt;
+package com.agorapulse.testing.fixt;
 
 import org.codehaus.groovy.runtime.IOGroovyMethods;
 import org.junit.rules.TestRule;
