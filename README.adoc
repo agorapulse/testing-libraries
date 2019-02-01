@@ -1,4 +1,4 @@
-= Agorapulse Micronaut Libraries
+= Agorapulse Lesting Libraries
 
 --
 image::https://api.bintray.com/packages/agorapulse/libs/fixt/images/download.svg[link="https://bintray.com/agorapulse/libs/fixt/_latestVersion",float="left"]
@@ -8,6 +8,6 @@ image::https://coveralls.io/repos/github/agorapulse/testing-libraries/badge.svg?
 
 ---
 
-Set of useful JUnit and Spock  libraries. All of the libraries are available in https://bintray.com/bintray/jcenter[JCenter Maven repository].
+Set of useful JUnit and Spock libraries. All of the libraries are available in https://bintray.com/bintray/jcenter[JCenter Maven repository].
 
 See https://agorapulse.github.io/testing-libraries[Full Documentation].

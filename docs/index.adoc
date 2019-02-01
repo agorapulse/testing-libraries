@@ -1,4 +1,4 @@
-= Agorapulse Micronaut Libaries
+= Agorapulse Testing Libaries
 
 [.ribbon]
 image::ribbon.png[link={projectUrl}]
