@@ -4,7 +4,7 @@ import spock.lang.Specification
 
 class DetachedSpec extends Specification {
 
-    @Detached Runnable runnable = MyMockFactory.mockRunnable()
+    @Detached Runnable runnable = MyMockFactory.mockRunnable()                          // <1>
 
     void 'mock is attached'() {
         when:

@@ -4,7 +4,7 @@ import spock.lang.Specification
 
 class ParentSpec extends Specification {
 
-    void 'ignore me in child'() {
+    void 'ignore me in child'() {                                                       // <1>
         expect:
             this.getClass() == ParentSpec || this.getClass() == GrandChildSpec
     }

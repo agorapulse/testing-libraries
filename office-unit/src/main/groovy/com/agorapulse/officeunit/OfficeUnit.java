@@ -36,7 +36,12 @@ public class OfficeUnit {
     }
 
     public OfficeUnit() {
-        this("", DEFAULT_IGNORED);
+        this("", new HashSet<>(DEFAULT_IGNORED));
+    }
+
+    public OfficeUnit ignore(String... ignored) {
+        this.ignored.addAll(Arrays.asList(ignored));
+        return this;
     }
 
     public Set<String> getIgnored() {

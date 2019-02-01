@@ -4,17 +4,17 @@ import com.agorapulse.testing.grails.job.JobUnitTest
 import org.quartz.SimpleTrigger
 import spock.lang.Specification
 
-class TestJobSpec extends Specification implements JobUnitTest<TestJob> {
+class TestJobSpec extends Specification implements JobUnitTest<TestJob> {               // <1>
 
     Runnable mock = Mock(Runnable)
 
     void setup() {
-        job.runnable = mock
+        job.runnable = mock                                                             // <2>
     }
 
     void 'test trigger job'() {
         when:
-            trigger job
+            trigger job                                                                 // <3>
         then:
             noExceptionThrown()
 
@@ -23,10 +23,10 @@ class TestJobSpec extends Specification implements JobUnitTest<TestJob> {
 
     void 'check cofiguration'() {
         expect:
-            triggers.any {
+            triggers.any {                                                              // <4>
                 it instanceof SimpleTrigger && it.repeatInterval == 1000
             }
-            jobClass.concurrent
+            jobClass.concurrent                                                         // <5>
             jobClass.sessionRequired
             jobClass.description == 'Example job with Simple Trigger'
             jobClass.group == 'MyGroup'
