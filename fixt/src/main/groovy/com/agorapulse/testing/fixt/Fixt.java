@@ -5,7 +5,17 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.FileSystems;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -130,12 +140,19 @@ public class Fixt implements TestRule {
     }
 
     private String getFixtureLocation(String fileName) {
-        String suffix = clazz.getSimpleName() + "/" + fileName;
         Package pkg = clazz.getPackage();
         if (pkg == null) {
+            String suffix = clazz.getSimpleName() + "/" + fileName;
             return suffix;
         }
-        return pkg.getName().replaceAll("\\.", File.separator) + File.separator + suffix;
+
+        List<String> packagePath = Arrays.asList(pkg.getName().split("\\."));
+        List<String> pathElements = new ArrayList<>(packagePath);
+        pathElements.add(clazz.getSimpleName());
+        pathElements.add(fileName);
+        String[] pathParams = pathElements.toArray(new String[0]);
+
+        return FileSystems.getDefault().getPath("", pathParams).toString();
     }
 
     @Override
