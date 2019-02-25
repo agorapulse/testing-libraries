@@ -4,6 +4,7 @@ import org.junit.Rule
 import org.junit.rules.TemporaryFolder
 import spock.lang.Specification
 import spock.util.environment.RestoreSystemProperties
+import spock.util.mop.ConfineMetaClassChanges
 
 @RestoreSystemProperties
 class FixtSpec extends Specification {
@@ -25,7 +26,11 @@ class FixtSpec extends Specification {
             fixt.readText(TEXT_FILE) == TEXT_CONTENT                                    // <3>
     }
 
+    @ConfineMetaClassChanges(File)
     void 'writing files'() {
+        setup:
+            File.metaClass.static.getSeparator = { -> return fileSeparator }
+
         when:
             Fixt fixt = Fixt.create(ReferenceClass)                                     // <4>
             File testResources = tmp.newFolder()
@@ -46,6 +51,9 @@ class FixtSpec extends Specification {
             contextTestFolder.exists()
             new File(contextTestFolder, STREAM_FILE).text == STREAM_CONTENT
             new File(contextTestFolder, TEXT_FILE).text == TEXT_CONTENT
+
+        where:
+            fileSeparator << ['\\', '/']
     }
 
 }
