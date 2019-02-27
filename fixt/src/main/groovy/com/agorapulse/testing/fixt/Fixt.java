@@ -1,12 +1,15 @@
 package com.agorapulse.testing.fixt;
 
-import org.codehaus.groovy.runtime.IOGroovyMethods;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
 import java.io.*;
-import java.util.Map;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.util.*;
 
 /**
  * Simple tool for managing test fixtures in folders which corresponds the package and the name of the specification class.
@@ -36,7 +39,7 @@ public class Fixt implements TestRule {
      * @return the location of the test resources folder
      */
     public static String getTestResourcesLocation() {
-        String testResourcesFolder = "src/test/resources";
+        String testResourcesFolder = FileSystems.getDefault().getPath("src", "test", "resources").toString();
         for (Map.Entry<Object, Object> property : System.getProperties().entrySet()) {
             String canonicalKey = property.getKey().toString().replaceAll(IGNORED_CHARACTERS, "");
             if (canonicalKey.equalsIgnoreCase(TEST_RESOURCES_FOLDER_PROPERTY_NAME) && property.getValue() != null) {
@@ -77,9 +80,7 @@ public class Fixt implements TestRule {
         String path = getFixtureLocation(fileName);
         File file = new File(getTestResourcesLocation(), path);
         file.getParentFile().mkdirs();
-        try (FileOutputStream out = new FileOutputStream(file)) {
-            IOGroovyMethods.setBytes(out, IOGroovyMethods.getBytes(stream));
-        }
+        Files.copy(stream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 
     /**
@@ -113,7 +114,8 @@ public class Fixt implements TestRule {
         if (stream == null) {
             return null;
         }
-        return IOGroovyMethods.getText(stream);
+
+        return streamToText(stream);
     }
 
     /**
@@ -130,12 +132,14 @@ public class Fixt implements TestRule {
     }
 
     private String getFixtureLocation(String fileName) {
-        String suffix = clazz.getSimpleName() + "/" + fileName;
         Package pkg = clazz.getPackage();
-        if (pkg == null) {
-            return suffix;
-        }
-        return pkg.getName().replaceAll("\\.", File.separator) + File.separator + suffix;
+        List<String> packagePath = pkg == null ? Collections.emptyList() : Arrays.asList(pkg.getName().split("\\."));
+        List<String> pathElements = new ArrayList<>(packagePath);
+        pathElements.add(clazz.getSimpleName());
+        pathElements.add(fileName);
+        String[] pathParams = pathElements.toArray(new String[0]);
+
+        return FileSystems.getDefault().getPath("", pathParams).toString();
     }
 
     @Override
@@ -149,8 +153,16 @@ public class Fixt implements TestRule {
         };
     }
 
+    private static String streamToText(InputStream stream) {
+        String text = null;
+        try (Scanner scanner = new Scanner(stream, StandardCharsets.UTF_8.name())) {
+            text = scanner.useDelimiter("\\A").next();
+        }
+        return text;
+    }
+
     private InputStream readStreamFromClasspath(String fileName) {
-        return clazz.getResourceAsStream(clazz.getSimpleName() + "/" + fileName);
+        return clazz.getResourceAsStream(clazz.getSimpleName() + File.separator + fileName);
     }
 
     private InputStream readStreamFromFileSystem(String fileName) {
