@@ -3,7 +3,9 @@ plugins {
 }
 
 dependencies {
-    implementation "org.codehaus.groovy:groovy:${groovyVersion}"
+    // required by Groovy plugin
+    compileOnly "org.codehaus.groovy:groovy:${groovyVersion}"
+
     implementation "junit:junit:${junitVersion}"
     testImplementation "org.spockframework:spock-core:${spockVersion}"
     testImplementation 'com.github.stefanbirkner:system-rules:1.19.0'
