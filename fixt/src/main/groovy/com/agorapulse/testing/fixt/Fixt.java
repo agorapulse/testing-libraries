@@ -162,7 +162,7 @@ public class Fixt implements TestRule {
     }
 
     private InputStream readStreamFromClasspath(String fileName) {
-        return clazz.getResourceAsStream(clazz.getSimpleName() + File.separator + fileName);
+        return clazz.getResourceAsStream(clazz.getSimpleName() + '/' + fileName);
     }
 
     private InputStream readStreamFromFileSystem(String fileName) {
