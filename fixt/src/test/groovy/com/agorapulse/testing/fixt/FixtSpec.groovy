@@ -17,7 +17,7 @@ class FixtSpec extends Specification {
     TemporaryFolder tmp = new TemporaryFolder()
 
     @Rule
-    Fixt fixt = Fixt.create(FixtSpec)                                                   // <1>
+    Fixt fixt = Fixt.create(this)                                                       // <1>
 
     void 'reading existing files'() {
         expect:

@@ -70,7 +70,7 @@ dependencies {
 ----
 include::../fixt/src/test/groovy/com/agorapulse/testing/fixt/FixtSpec.groovy[]
 ----
-<1> Declare `Fixt` rule for the specification class
+<1> Declare `Fixt` rule for the specification
 <2> Read the content of the file as stream
 <3> Read the content of the file as text
 <4> Create `Fixt` for the specific class (`ReferenceClass`)

@@ -20,6 +20,15 @@ public class Fixt implements TestRule {
     private static final String IGNORED_CHARACTERS = "[\\W_]";
 
     /**
+     * Creates new Fixt for the given object which might be a class.
+     * @param object the given object which might be class
+     * @return new Fixt for the given object
+     */
+    public static Fixt create(Object object) {
+        return new Fixt(object instanceof Class ? (Class) object : object.getClass());
+    }
+
+    /**
      * Creates new Fixt for the given class.
      * @param clazz the given class
      * @return new Fixt for the given class
