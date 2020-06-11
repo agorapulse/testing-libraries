@@ -26,9 +26,9 @@ import spock.util.environment.RestoreSystemProperties
 class FixtSpec extends Specification {
 
     public static final String TEXT_FILE = 'text.txt'
-    public static final String TEXT_CONTENT = 'Hello Text'
+    public static final String TEXT_CONTENT = 'Hello Text\n'
     public static final String STREAM_FILE = 'stream.txt'
-    public static final String STREAM_CONTENT = 'Hello Stream'
+    public static final String STREAM_CONTENT = 'Hello Stream\n'
 
     @Rule
     TemporaryFolder tmp = new TemporaryFolder()

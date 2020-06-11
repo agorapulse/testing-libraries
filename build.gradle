@@ -108,6 +108,8 @@ allprojects {
     license {
         exclude '**/*.json'
         exclude '***.yml'
+        exclude '**/FixtSpec/*.*'
+        exclude '**/ReferenceClass/*.*'
     }
 }
 
