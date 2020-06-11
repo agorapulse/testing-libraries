@@ -1,0 +1,224 @@
+= Agorapulse Testing Libraries
+
+--
+image::https://api.bintray.com/packages/agorapulse/libs/fixt/images/download.svg[link="https://bintray.com/agorapulse/libs/fixt/_latestVersion",float="left"]
+image::https://travis-ci.org/agorapulse/testing-libraries.svg?branch=master["Build Status", link="https://travis-ci.org/agorapulse/testing-libraries"float="left"]
+image::https://coveralls.io/repos/github/agorapulse/testing-libraries/badge.svg?branch=master[link=https://coveralls.io/github/agorapulse/testing-libraries?branch=master",float="left"]
+--
+
+---
+
+Set of useful test utilities. All the libraries are available in https://bintray.com/bintray/jcenter[JCenter Maven repository].
+
+== Fixt
+
+Fixt helps organize fixtures for your fixtures in a directories with the same name as your test class.
+
+image::fixt.png[]
+
+Given a test residing in `src/test/java` or `src/test/groovy` with name `org.example.MyTest` then
+the fixtures' location will `src/test/resources/org/example/MyTest` keeping all the files for given test in a single folder.
+
+If you generate the fixture files from your tests it is always better to specify the path to the test resources folder
+using `test.resources.folder` system property or `TEST_RESOURCES_FOLDER` environment variable.
+
+In Gradle, you can easily achive this by using following snippet:
+
+[source,groovy,indent=0]
+.Setting Test Resources Folder in Gradle
+----
+test {
+    environment 'TEST_RESOURCES_FOLDER', new File(project.projectDir, 'src/test/resources').canonicalPath
+}
+----
+
+Fixt can be use directly or as a JUnit rule which will guarantee that the directories are created before
+the test run so adding new fixture files will be easier.
+
+=== Installation
+
+[source,indent=0,role="primary",subs='verbatim,attributes']
+.Gradle
+----
+repositories {
+    jcenter()
+}
+
+dependencies {
+    testCompile 'com.agorapulse.testing:fixt:{project-version}'
+}
+----
+
+[source,xml,indent=0,role="secondary",subs='verbatim,attributes']
+.Maven
+----
+<dependency>
+    <groupId>com.agorapulse.testing</groupId>
+    <artifactId>fixt</artifactId>
+    <version>{project-version}</version>
+    <scope>test</scope>
+</dependency>
+----
+
+=== Usage
+
+[source,groovy,indent=0,options="nowrap"]
+.Example Specification
+----
+include::{root-dir}/libs/fixt/src/test/groovy/com/agorapulse/testing/fixt/FixtSpec.groovy[lines=18..-1]
+----
+<1> Declare `Fixt` rule for the specification
+<2> Read the content of the file as stream
+<3> Read the content of the file as text
+<4> Create `Fixt` for the specific class (`ReferenceClass`)
+<5> Create all necessary directories if they do not exist yet
+<6> Write the content of the stream into a file
+<7> Write the text into a file
+
+== Grails Job Testing Support
+
+Grails Job Testing Support brings the same trait-based tesing support to jobs created by the http://plugins.grails.org/plugin/grails/quartz[Quartz plugin] as the original
+https://testing.grails.org/]Grails Testing Support]. It provides `JobUnitTest<J>` trait which your specification can implement
+in order to test the job more easily.
+
+=== Installation
+
+[source,indent=0,role="primary",subs='verbatim,attributes']
+.Gradle
+----
+repositories {
+    jcenter()
+}
+
+dependencies {
+    testCompile 'com.agorapulse.testing:grails-job-testing-support:{project-version}'
+}
+----
+
+=== Usage
+
+[source,groovy,indent=0,options="nowrap"]
+.Example Job
+----
+include::{root-dir}/libs/grails-job-testing-support/src/test/groovy/com/agorapulse/testing/grails/job/test/TestJob.groovy[lines=18..-1]
+----
+
+[source,groovy,indent=0,options="nowrap"]
+.Example Specification
+----
+include::{root-dir}/libs/grails-job-testing-support/src/test/groovy/com/agorapulse/testing/grails/job/test/TestJobSpec.groovy[lines=18..-1]
+----
+<1> Implement `JobUnitTest` with the particular job under test
+<2> You can inject any mocks into the job instance
+<3> Trigger the job
+<4> Access the list of configured triggers
+<5> Access the job metadata
+
+== Office Unit
+
+Office Unit is trivial tool for matching Microsoft Office documents. It leverage their nature of
+being archive files with XML content. It compares the content of the files using https://www.xmlunit.org/[XmlUnit]
+but it by default ignores date created and last updated timestamps. The typical usecase is to compare the
+reference file against the newly generated to keep the status quo of the exports.
+
+For Excel documents, you should consider using http://spreadsheet.dsl.builders/#_reading_and_querying_spreadsheets[SpreadsheetQuery]
+instead.
+
+=== Installation
+
+[source,indent=0,role="primary",subs='verbatim,attributes']
+.Gradle
+----
+repositories {
+    jcenter()
+}
+
+dependencies {
+    testCompile 'com.agorapulse.testing:office-unit:{project-version}'
+}
+----
+
+[source,xml,indent=0,role="secondary",subs='verbatim,attributes']
+.Maven
+----
+<dependency>
+    <groupId>com.agorapulse.testing</groupId>
+    <artifactId>office-unit</artifactId>
+    <version>{project-version}</version>
+    <scope>test</scope>
+</dependency>
+----
+
+=== Usage
+
+[source,groovy,indent=0,options="nowrap"]
+.Example Specification
+----
+include::{root-dir}/libs/office-unit/src/test/groovy/com/agorapulse/testing/officeunit/OfficeUnitSpec.groovy[tag=differences]
+
+include::{root-dir}/libs/office-unit/src/test/groovy/com/agorapulse/testing/officeunit/OfficeUnitSpec.groovy[tag=differences-count]
+
+include::{root-dir}/libs/office-unit/src/test/groovy/com/agorapulse/testing/officeunit/OfficeUnitSpec.groovy[tag=ignore]
+----
+<1> Compare two Microsoft Office files and expect no difference
+<2> Expect some differences
+<3> Ignore some differences by XPath expression
+
+== Spock
+
+Set of useful http://spockframework.org/[Spock Framework] extensions.
+
+* `@Detached` will automatically attach mock created by `DetachedMockFactory`
+* `@OverrideParentFeatures` will override any parent features of the same name
+
+=== Installation
+
+[source,indent=0,role="primary",subs='verbatim,attributes']
+.Gradle
+----
+repositories {
+    jcenter()
+}
+
+dependencies {
+    testCompile 'com.agorapulse.testing:spock:{project-version}'
+}
+----
+
+[source,xml,indent=0,role="secondary",subs='verbatim,attributes']
+.Maven
+----
+<dependency>
+    <groupId>com.agorapulse.testing</groupId>
+    <artifactId>spock</artifactId>
+    <version>{project-version}</version>
+    <scope>test</scope>
+</dependency>
+----
+
+=== Usage
+
+[source,groovy,indent=0,options="nowrap"]
+.Detached Specification
+----
+include::{root-dir}/libs/spock/src/test/groovy/com/agorapulse/testing/spock/DetachedSpec.groovy[lines=18..-1]
+----
+<1> You can attach mock which has been created out of the scope of current specification
+
+[source,groovy,indent=0,options="nowrap"]
+.Parent Specification
+----
+include::{root-dir}/libs//spock/src/test/groovy/com/agorapulse/testing/spock/ParentSpec.groovy[lines=18..-1]
+----
+<1> Feature methods declared in parent specification cannot be normally overriden
+
+[source,groovy,indent=0,options="nowrap"]
+.Child Specification
+----
+include::{root-dir}/libs//spock/src/test/groovy/com/agorapulse/testing/spock/ChildSpec.groovy[lines=18..-1]
+----
+<1> Using `OverrideParentFeatures` any method with the same name in any parent is skipped
+
+== Maintained by
+
+image::https://cloud.githubusercontent.com/assets/139017/17053391/4a44735a-5034-11e6-8e72-9f4b7139d7e0.png[link=https://www.agorapulse.com/]
