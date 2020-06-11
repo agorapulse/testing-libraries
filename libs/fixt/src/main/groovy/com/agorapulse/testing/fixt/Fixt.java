@@ -180,11 +180,13 @@ public class Fixt implements TestRule {
     }
 
     private static String streamToText(InputStream stream) {
-        String text = null;
-        try (Scanner scanner = new Scanner(stream, StandardCharsets.UTF_8.name())) {
-            text = scanner.useDelimiter("\\A").next();
+        try (Scanner scanner = new Scanner(stream, StandardCharsets.UTF_8.name()).useDelimiter("\\A")) {
+            if (scanner.hasNext()) {
+                return scanner.next();
+
+            }
         }
-        return text;
+        return "";
     }
 
     private InputStream readStreamFromClasspath(String fileName) {
