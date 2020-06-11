@@ -29,6 +29,8 @@ class FixtSpec extends Specification {
     public static final String TEXT_CONTENT = 'Hello Text\n'
     public static final String STREAM_FILE = 'stream.txt'
     public static final String STREAM_CONTENT = 'Hello Stream\n'
+    public static final String EMPTY_FILE = 'empty.txt'
+    public static final String EMPTY_CONTENT = ''
 
     @Rule
     TemporaryFolder tmp = new TemporaryFolder()
@@ -40,6 +42,7 @@ class FixtSpec extends Specification {
         expect:
             fixt.readStream(STREAM_FILE).text == STREAM_CONTENT                         // <2>
             fixt.readText(TEXT_FILE) == TEXT_CONTENT                                    // <3>
+            fixt.readText(EMPTY_FILE) == EMPTY_CONTENT
     }
 
     void 'writing files'() {
