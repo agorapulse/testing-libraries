@@ -17,6 +17,9 @@
  */
 package com.agorapulse.testing.grails.job.test
 
+import groovy.transform.CompileDynamic
+
+@CompileDynamic
 @SuppressWarnings('FieldTypeRequired')
 class TestJob {
 

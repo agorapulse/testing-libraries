@@ -17,8 +17,10 @@
  */
 package com.agorapulse.testing.spock
 
+import groovy.transform.CompileStatic
 import spock.mock.DetachedMockFactory
 
+@CompileStatic
 class MyMockFactory {
 
     static Runnable mockRunnable() {
