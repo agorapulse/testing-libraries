@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
  *
- * Copyright 2018-2020 Agorapulse.
+ * Copyright 2018-2021 Agorapulse.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,21 +17,27 @@
  */
 package com.agorapulse.testing.fixt;
 
-import org.junit.rules.TestRule;
-import org.junit.runner.Description;
-import org.junit.runners.model.Statement;
-
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 /**
  * Simple tool for managing test fixtures in folders which corresponds the package and the name of the specification class.
  */
-public class Fixt implements TestRule {
+public class Fixt {
 
     private static final String TEST_RESOURCES_FOLDER_PROPERTY_NAME = "testresourcesfolder";
     private static final String IGNORED_CHARACTERS = "[\\W_]";
@@ -42,7 +48,9 @@ public class Fixt implements TestRule {
      * @return new Fixt for the given object
      */
     public static Fixt create(Object object) {
-        return new Fixt(object instanceof Class ? (Class) object : object.getClass());
+        Fixt fixt = new Fixt(object instanceof Class ? (Class<?>) object : object.getClass());
+        fixt.mkdirs();
+        return fixt;
     }
 
     /**
@@ -50,13 +58,15 @@ public class Fixt implements TestRule {
      * @param clazz the given class
      * @return new Fixt for the given class
      */
-    public static Fixt create(Class clazz) {
-        return new Fixt(clazz);
+    public static Fixt create(Class<?> clazz) {
+        Fixt fixt = new Fixt(clazz);
+        fixt.mkdirs();
+        return fixt;
     }
 
-    private final Class clazz;
+    private final Class<?> clazz;
 
-    private Fixt(Class clazz) {
+    private Fixt(Class<?> clazz) {
         this.clazz = clazz;
     }
 
@@ -135,7 +145,7 @@ public class Fixt implements TestRule {
      * @param fileName the relative file name
      * @return the text stored in the given file
      */
-    public String readText(String fileName) throws IOException {
+    public String readText(String fileName) {
         InputStream stream = readStream(fileName);
         if (stream == null) {
             return null;
@@ -166,17 +176,6 @@ public class Fixt implements TestRule {
         String[] pathParams = pathElements.toArray(new String[0]);
 
         return FileSystems.getDefault().getPath("", pathParams).toString();
-    }
-
-    @Override
-    public Statement apply(Statement base, Description description) {
-        return new Statement() {
-            @Override
-            public void evaluate() throws Throwable {
-                mkdirs();
-                base.evaluate();
-            }
-        };
     }
 
     private static String streamToText(InputStream stream) {
