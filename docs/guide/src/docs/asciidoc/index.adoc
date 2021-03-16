@@ -32,8 +32,7 @@ test {
 }
 ----
 
-Fixt can be use directly or as a JUnit rule which will guarantee that the directories are created before
-the test run so adding new fixture files will be easier.
+Fixt guarantee that the directories are created before the test run so adding new fixture files will be easier.
 
 === Installation
 
@@ -67,7 +66,7 @@ dependencies {
 ----
 include::{root-dir}/libs/fixt/src/test/groovy/com/agorapulse/testing/fixt/FixtSpec.groovy[lines=18..-1]
 ----
-<1> Declare `Fixt` rule for the specification
+<1> Declare `Fixt` for the specification
 <2> Read the content of the file as stream
 <3> Read the content of the file as text
 <4> Create `Fixt` for the specific class (`ReferenceClass`)

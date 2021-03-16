@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
  *
- * Copyright 2018-2020 Agorapulse.
+ * Copyright 2018-2021 Agorapulse.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
  */
 import com.agorapulse.testing.fixt.Fixt
 import org.junit.ClassRule
-import org.junit.Rule
 import org.junit.contrib.java.lang.system.EnvironmentVariables
 import org.junit.rules.TemporaryFolder
 import spock.lang.Shared
@@ -39,7 +38,6 @@ class FixtSpecNoPackageSpec extends Specification {
     @ClassRule @Shared
     EnvironmentVariables environmentVariables = new EnvironmentVariables()
 
-    @Rule
     Fixt fixt = Fixt.create(FixtSpecNoPackageSpec)
 
     void setupSpec() {

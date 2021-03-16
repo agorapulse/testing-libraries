@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
  *
- * Copyright 2018-2020 Agorapulse.
+ * Copyright 2018-2021 Agorapulse.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,6 @@ class FixtSpec extends Specification {
     @Rule
     TemporaryFolder tmp = new TemporaryFolder()
 
-    @Rule
     Fixt fixt = Fixt.create(this)                                                       // <1>
 
     void 'reading existing files'() {

@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
  *
- * Copyright 2018-2020 Agorapulse.
+ * Copyright 2018-2021 Agorapulse.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,6 @@ dependencies {
     // required by Groovy plugin
     compileOnly "org.codehaus.groovy:groovy:${groovyVersion}"
 
-    implementation "junit:junit:${junitVersion}"
     testImplementation "org.spockframework:spock-core:${spockVersion}"
     testImplementation 'com.github.stefanbirkner:system-rules:1.19.0'
 }
