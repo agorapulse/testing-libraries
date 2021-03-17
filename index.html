@@ -338,7 +338,10 @@ dependencies {
 import groovy.transform.CompileDynamic
 
 @CompileDynamic
-@SuppressWarnings('FieldTypeRequired')
+@SuppressWarnings([
+    'FieldTypeRequired',
+    'NoDef',
+])
 class TestJob {
 
     static triggers = {
@@ -674,7 +677,7 @@ class ChildSpec extends ParentSpec {
 <div id="footer">
 <div id="footer-text">
 Version 0.2.1.1<br>
-Last updated 2021-03-17 05:15:34 UTC
+Last updated 2021-03-17 06:30:02 UTC
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
