@@ -116,7 +116,7 @@ import spock.lang.Unroll
     private static File loadFile(String name) {
         URL resource = OfficeUnitSpec.getResource(name)
         assert resource
-        new File(resource.toURI())
+        return new File(resource.toURI())
     }
 
 }

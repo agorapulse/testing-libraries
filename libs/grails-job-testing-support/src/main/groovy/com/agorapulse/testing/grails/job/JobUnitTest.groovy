@@ -53,7 +53,7 @@ trait JobUnitTest<J> implements ParameterizedGrailsUnitTest<J>, DataTest {
     private List<Trigger> _triggers
 
     J getJob() {
-        artefactInstance
+        return artefactInstance
     }
 
     GrailsJobClass getJobClass() {
@@ -88,7 +88,7 @@ trait JobUnitTest<J> implements ParameterizedGrailsUnitTest<J>, DataTest {
 
     @Override
     String getBeanName(Class<?> artefactClass) {
-        typeUnderTest.name
+        return typeUnderTest.name
     }
 
     @SuppressWarnings('UnusedMethodParameter')
