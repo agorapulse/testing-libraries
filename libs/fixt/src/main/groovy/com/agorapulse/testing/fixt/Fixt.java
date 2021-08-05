@@ -111,12 +111,15 @@ public class Fixt {
      *
      * @param fileName relative name of the file
      * @param stream the stream with the content for the new file
+     *
+     * @return the newly created file
      */
-    public void writeStream(String fileName, InputStream stream) throws IOException {
+    public File writeStream(String fileName, InputStream stream) throws IOException {
         String path = getFixtureLocation(fileName);
         File file = new File(getTestResourcesLocation(), path);
         file.getParentFile().mkdirs();
         Files.copy(stream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        return file;
     }
 
     /**
@@ -162,9 +165,11 @@ public class Fixt {
      *
      * @param fileName relative name of the file
      * @param text the text of the new file
+     *
+     * @return the newly created file
      */
-    public void writeText(String fileName, String text) throws IOException {
-        writeStream(fileName, new ByteArrayInputStream(text.getBytes()));
+    public File  writeText(String fileName, String text) throws IOException {
+        return writeStream(fileName, new ByteArrayInputStream(text.getBytes()));
     }
 
     private String getFixtureLocation(String fileName) {
