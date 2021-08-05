@@ -1,7 +1,7 @@
 = Agorapulse Lesting Libraries
 
 --
-image::https://api.bintray.com/packages/agorapulse/libs/fixt/images/download.svg[link="https://bintray.com/agorapulse/libs/fixt/_latestVersion",float="left"]
+image::https://img.shields.io/maven-central/v/com.agorapulse.testing/fixt.svg?label=Maven%20Central[link="https://search.maven.org/search?q=g:%22com.agorapulse.testing%22%20AND%20a:%22fixt%22",float="left"]
 image::https://travis-ci.org/agorapulse/testing-libraries.svg?branch=master["Build Status", link="https://travis-ci.org/agorapulse/testing-libraries"float="left"]
 image::https://coveralls.io/repos/github/agorapulse/testing-libraries/badge.svg?branch=master[link=https://coveralls.io/github/agorapulse/testing-libraries?branch=master",float="left"]
 --
