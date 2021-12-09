@@ -67,4 +67,16 @@ class FixtSpec extends Specification {
             new File(contextTestFolder, TEXT_FILE).text == TEXT_CONTENT
     }
 
+    void 'copy directory'() {
+        given:
+            Fixt fixt = Fixt.create(this)
+            File destinationDir = tmp.newFolder()
+        when:
+            fixt.copyTo('testdir', destinationDir)                                      // <8>
+        then:
+            new File(destinationDir, 'root.txt').exists()                               // <9>
+            new File(destinationDir, 'firstLevel/firstLevel.txt').exists()
+            new File(destinationDir, 'firstLevel/secondLevel/secondLevel.txt').exists()
+    }
+
 }

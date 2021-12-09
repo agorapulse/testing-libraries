@@ -73,6 +73,8 @@ include::{root-dir}/libs/fixt/src/test/groovy/com/agorapulse/testing/fixt/FixtSp
 <5> Create all necessary directories if they do not exist yet
 <6> Write the content of the stream into a file
 <7> Write the text into a file
+<8> Copy whole directory from the test resources
+<9> All thehe files from the fixture directory are available in the new destination
 
 == Grails Job Testing Support
 
