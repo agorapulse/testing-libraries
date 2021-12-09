@@ -90,7 +90,7 @@ $(addBlockSwitches);
 <div id="header">
 <h1>Agorapulse Testing Libraries</h1>
 <div class="details">
-<span id="revnumber">version 0.2.2</span>
+<span id="revnumber">version 0.2.3</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -194,7 +194,7 @@ using <code>test.resources.folder</code> system property or <code>TEST_RESOURCES
 }
 
 dependencies {
-    testCompile 'com.agorapulse.testing:fixt:0.2.2'
+    testCompile 'com.agorapulse.testing:fixt:0.2.3'
 }</code></pre>
 </div>
 </div>
@@ -204,7 +204,7 @@ dependencies {
 <pre class="prettyprint highlight"><code data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;com.agorapulse.testing&lt;/groupId&gt;
     &lt;artifactId&gt;fixt&lt;/artifactId&gt;
-    &lt;version&gt;0.2.2&lt;/version&gt;
+    &lt;version&gt;0.2.3&lt;/version&gt;
     &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
@@ -267,6 +267,18 @@ class FixtSpec extends Specification {
             new File(contextTestFolder, TEXT_FILE).text == TEXT_CONTENT
     }
 
+    void 'copy directory'() {
+        given:
+            Fixt fixt = Fixt.create(this)
+            File destinationDir = tmp.newFolder()
+        when:
+            fixt.copyTo('testdir', destinationDir)                                      <i class="conum" data-value="8"></i><b>(8)</b>
+        then:
+            new File(destinationDir, 'root.txt').exists()                               <i class="conum" data-value="9"></i><b>(9)</b>
+            new File(destinationDir, 'firstLevel/firstLevel.txt').exists()
+            new File(destinationDir, 'firstLevel/secondLevel/secondLevel.txt').exists()
+    }
+
 }</code></pre>
 </div>
 </div>
@@ -300,6 +312,14 @@ class FixtSpec extends Specification {
 <td><i class="conum" data-value="7"></i><b>7</b></td>
 <td>Write the text into a file</td>
 </tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Copy whole directory from the test resources</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>All thehe files from the fixture directory are available in the new destination</td>
+</tr>
 </table>
 </div>
 </div>
@@ -323,7 +343,7 @@ in order to test the job more easily.</p>
 }
 
 dependencies {
-    testCompile 'com.agorapulse.testing:grails-job-testing-support:0.2.2'
+    testCompile 'com.agorapulse.testing:grails-job-testing-support:0.2.3'
 }</code></pre>
 </div>
 </div>
@@ -453,7 +473,7 @@ instead.</p>
 }
 
 dependencies {
-    testCompile 'com.agorapulse.testing:office-unit:0.2.2'
+    testCompile 'com.agorapulse.testing:office-unit:0.2.3'
 }</code></pre>
 </div>
 </div>
@@ -463,7 +483,7 @@ dependencies {
 <pre class="prettyprint highlight"><code data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;com.agorapulse.testing&lt;/groupId&gt;
     &lt;artifactId&gt;office-unit&lt;/artifactId&gt;
-    &lt;version&gt;0.2.2&lt;/version&gt;
+    &lt;version&gt;0.2.3&lt;/version&gt;
     &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
@@ -559,7 +579,7 @@ void 'ignore some other part'() {
 }
 
 dependencies {
-    testCompile 'com.agorapulse.testing:spock:0.2.2'
+    testCompile 'com.agorapulse.testing:spock:0.2.3'
 }</code></pre>
 </div>
 </div>
@@ -569,7 +589,7 @@ dependencies {
 <pre class="prettyprint highlight"><code data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;com.agorapulse.testing&lt;/groupId&gt;
     &lt;artifactId&gt;spock&lt;/artifactId&gt;
-    &lt;version&gt;0.2.2&lt;/version&gt;
+    &lt;version&gt;0.2.3&lt;/version&gt;
     &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
@@ -676,8 +696,8 @@ class ChildSpec extends ParentSpec {
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.2.2<br>
-Last updated 2021-08-05 12:41:27 UTC
+Version 0.2.3<br>
+Last updated 2021-12-09 08:30:21 UTC
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
