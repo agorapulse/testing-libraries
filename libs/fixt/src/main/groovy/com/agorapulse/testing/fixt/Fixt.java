@@ -24,15 +24,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 /**
  * Simple tool for managing test fixtures in folders which corresponds the package and the name of the specification class.
@@ -158,6 +158,35 @@ public class Fixt {
     }
 
     /**
+     * Copies all files from the fixtureDirectoryPath into destinationDirectory.
+     *
+     * <p>
+     *     The files are copied from the test resources folder such as <code>src/main/test/resources</code>.
+     *     The current implementation does not support reading the directory content from the classpath (e.g. a different project)
+     * </p>
+     * @param fixtureDirectoryPath
+     * @param destinationDirectory
+     * @return
+     */
+    public File copyTo(String fixtureDirectoryPath, File destinationDirectory) {
+        File testingDirectory = new File(getTestResourcesLocation(), getFixtureLocation(fixtureDirectoryPath));
+
+        if (!testingDirectory.exists()) {
+            if (testingDirectory.mkdirs()) {
+                throw new IllegalArgumentException("The directory " + testingDirectory.getAbsolutePath() + " does not exist but it has been crated!"
+                    + "Please, pay attention that the folder must exists in the very same project as the test");
+            }
+        }
+
+        try {
+            copyFolder(testingDirectory.toPath(), destinationDirectory.toPath());
+            return testingDirectory;
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Failed to copy directory", e);
+        }
+    }
+
+    /**
      * Saves the fixture to the appropriate location.
      *
      * The root for the fixtures is either specified with `TEST_RESOURCES_FOLDER` system property or defaults to
@@ -191,6 +220,25 @@ public class Fixt {
             }
         }
         return "";
+    }
+
+    public static void copyFolder(Path source, Path target, CopyOption... options) throws IOException {
+        Files.walkFileTree(source, new SimpleFileVisitor<Path>() {
+
+            @Override
+            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs)
+                throws IOException {
+                Files.createDirectories(target.resolve(source.relativize(dir)));
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+                throws IOException {
+                Files.copy(file, target.resolve(source.relativize(file)), options);
+                return FileVisitResult.CONTINUE;
+            }
+        });
     }
 
     private InputStream readStreamFromClasspath(String fileName) {

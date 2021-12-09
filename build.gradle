@@ -96,9 +96,7 @@ config {
 
 allprojects {
     repositories {
-        jcenter()
         mavenCentral()
-        maven { url  "https://dl.bintray.com/agorapulse/libs" }
         maven { url "https://repo.spring.io/release"  }
         maven { url "https://repo.grails.org/grails/core" }
     }
