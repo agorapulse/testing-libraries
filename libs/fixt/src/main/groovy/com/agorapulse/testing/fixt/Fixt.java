@@ -32,7 +32,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
 /**
  * Simple tool for managing test fixtures in folders which corresponds the package and the name of the specification class.
