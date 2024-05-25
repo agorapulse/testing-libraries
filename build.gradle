@@ -124,17 +124,11 @@ nexusPublishing {
 subprojects { Project subproject ->
     if (subproject.name == 'guide') return
 
+    apply plugin: 'java-library'
     apply plugin: 'groovy'
 
     targetCompatibility = JavaVersion.VERSION_1_8
     sourceCompatibility = JavaVersion.VERSION_1_8
-
-    config {
-        bintray {
-            name = subproject.name
-            githubRepo = "agorapulse/$rootProject.name"
-        }
-    }
 
     test {
         systemProperty 'TEST_RESOURCES_FOLDER', new File(subproject.projectDir, 'src/test/resources').canonicalPath
