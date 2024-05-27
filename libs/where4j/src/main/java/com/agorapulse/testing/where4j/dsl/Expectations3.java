@@ -1,8 +1,9 @@
 package com.agorapulse.testing.where4j.dsl;
 
 import com.agorapulse.testing.where4j.Expectations;
-import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.DynamicContainer;
 
+import java.util.Collections;
 import java.util.Iterator;
 
 class Expectations3<A, B, C> implements Expectations {
@@ -18,8 +19,8 @@ class Expectations3<A, B, C> implements Expectations {
     }
 
     @Override
-    public Iterator<DynamicTest> iterator() {
-        return where.generateTests(template, verification);
+    public Iterator<DynamicContainer> iterator() {
+        return Collections.singleton(DynamicContainer.dynamicContainer(template, where.generateTests(template, verification))).iterator();
     }
 
 }

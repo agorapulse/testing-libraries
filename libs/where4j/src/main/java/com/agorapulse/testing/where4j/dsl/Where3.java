@@ -6,8 +6,8 @@ import org.opentest4j.AssertionFailedError;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Where3<A, B , C> {
 
@@ -32,7 +32,7 @@ public class Where3<A, B , C> {
         });
     }
 
-    Iterator<DynamicTest> generateTests(String template, Assertion3<A, B, C> verification) {
+    Stream<DynamicTest> generateTests(String template, Assertion3<A, B, C> verification) {
         return data.stream().map(row -> {
             String title = template.replace("#" + headers.getA(), String.valueOf(row.getA()));
             title = title.replace("#" + headers.getB(), String.valueOf(row.getB()));
@@ -46,6 +46,6 @@ public class Where3<A, B , C> {
                     }
                 }
             );
-        }).iterator();
+        });
     }
 }

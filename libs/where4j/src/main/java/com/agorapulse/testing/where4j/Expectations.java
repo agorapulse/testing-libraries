@@ -1,11 +1,13 @@
 package com.agorapulse.testing.where4j;
 
-import com.agorapulse.testing.where4j.dsl.*;
-import org.junit.jupiter.api.DynamicTest;
+import com.agorapulse.testing.where4j.dsl.Headers3;
+import com.agorapulse.testing.where4j.dsl.Row3;
+import com.agorapulse.testing.where4j.dsl.Where3;
+import org.junit.jupiter.api.DynamicContainer;
 
 import java.util.Arrays;
 
-public interface Expectations extends Iterable<DynamicTest> {
+public interface Expectations extends Iterable<DynamicContainer> {
 
     static Headers3 header(String nameA, String nameB, String nameC) {
         return new Headers3(nameA, nameB, nameC);
