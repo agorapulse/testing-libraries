@@ -21,6 +21,15 @@ public class Where3<A, B , C> {
         this.data.addAll(rest);
     }
 
+    public Where3(Headers3 headers, Iterable<Row3<A, B, C>> rows) {
+        this.headers = headers;
+        rows.forEach(data::add);
+
+        if (data.isEmpty()) {
+            throw new IllegalArgumentException("No data provided. " + rows + " must contain at least one row.");
+        }
+    }
+
     public Expectations expect(String template, Assertion3<A, B, C> verification) {
         return new Expectations3<>(this, template, verification);
     }
