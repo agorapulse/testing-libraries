@@ -27,6 +27,17 @@ class ExpectationsTest {
     }
 
     @TestFactory
+    Expectations basicTestFluent() {
+        Calculator calculator = new Calculator();
+
+        return given("a", "b", "c")
+            .are(2, 3, 5)
+            .and(3, 5, 8)
+            .and(4, 7, 11)
+            .expect("#a + #b = #c", (a, b, c) -> calculator.add(a, b) == c);
+    }
+
+    @TestFactory
     Expectations basicTestWithStreams() {
         Calculator calculator = new Calculator();
 

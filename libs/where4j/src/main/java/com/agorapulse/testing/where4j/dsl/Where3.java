@@ -41,6 +41,11 @@ public class Where3<A, B , C> {
         });
     }
 
+    public Where3<A, B, C> and(A a, B b, C c) {
+        data.add(new Row3<>(a, b, c));
+        return this;
+    }
+
     Stream<DynamicTest> generateTests(String template, Assertion3<A, B, C> verification) {
         return data.stream().map(row -> {
             String title = template.replace("#" + headers.getA(), String.valueOf(row.getA()));

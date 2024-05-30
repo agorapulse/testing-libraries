@@ -24,6 +24,10 @@ public interface Expectations extends Iterable<DynamicContainer> {
         return new Where3<>(headers, first, Arrays.asList(rest));
     }
 
+    static Headers3 given(String headerA, String headerB, String headerC) {
+        return new Headers3(headerA, headerB, headerC);
+    }
+
     static <A, B, C> Where3<A, B, C> forEach(
         String headerA,
         Iterable<A> valuesA,
