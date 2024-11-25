@@ -8,7 +8,7 @@ image::https://coveralls.io/repos/github/agorapulse/testing-libraries/badge.svg?
 
 ---
 
-Set of useful test utilities. All the libraries are available in https://bintray.com/bintray/jcenter[JCenter Maven repository].
+Set of useful test utilities. All the libraries are available in https://central.sonatype.com/search?q=g%3Acom.agorapulse.testing[Maven Central].
 
 == Fixt
 
@@ -27,7 +27,7 @@ In Gradle, you can easily achive this by using following snippet:
 [source,groovy,indent=0]
 .Setting Test Resources Folder in Gradle
 ----
-test {
+tasks {
     environment 'TEST_RESOURCES_FOLDER', new File(project.projectDir, 'src/test/resources').canonicalPath
 }
 ----
@@ -40,7 +40,7 @@ Fixt guarantee that the directories are created before the test run so adding ne
 .Gradle
 ----
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
@@ -78,42 +78,7 @@ include::{root-dir}/libs/fixt/src/test/groovy/com/agorapulse/testing/fixt/FixtSp
 
 == Grails Job Testing Support
 
-Grails Job Testing Support brings the same trait-based tesing support to jobs created by the http://plugins.grails.org/plugin/grails/quartz[Quartz plugin] as the original
-https://testing.grails.org/]Grails Testing Support]. It provides `JobUnitTest<J>` trait which your specification can implement
-in order to test the job more easily.
-
-=== Installation
-
-[source,indent=0,role="primary",subs='verbatim,attributes']
-.Gradle
-----
-repositories {
-    jcenter()
-}
-
-dependencies {
-    testCompile 'com.agorapulse.testing:grails-job-testing-support:{project-version}'
-}
-----
-
-=== Usage
-
-[source,groovy,indent=0,options="nowrap"]
-.Example Job
-----
-include::{root-dir}/libs/grails-job-testing-support/src/test/groovy/com/agorapulse/testing/grails/job/test/TestJob.groovy[lines=18..-1]
-----
-
-[source,groovy,indent=0,options="nowrap"]
-.Example Specification
-----
-include::{root-dir}/libs/grails-job-testing-support/src/test/groovy/com/agorapulse/testing/grails/job/test/TestJobSpec.groovy[lines=18..-1]
-----
-<1> Implement `JobUnitTest` with the particular job under test
-<2> You can inject any mocks into the job instance
-<3> Trigger the job
-<4> Access the list of configured triggers
-<5> Access the job metadata
+Grails Job Testing Support has been discontinued since
 
 == Office Unit
 
@@ -131,7 +96,7 @@ instead.
 .Gradle
 ----
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
@@ -178,7 +143,7 @@ Set of useful http://spockframework.org/[Spock Framework] extensions.
 .Gradle
 ----
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {

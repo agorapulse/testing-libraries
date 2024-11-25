@@ -126,15 +126,8 @@ subprojects { Project subproject ->
 
     apply plugin: 'groovy'
 
-    targetCompatibility = JavaVersion.VERSION_1_8
-    sourceCompatibility = JavaVersion.VERSION_1_8
-
-    config {
-        bintray {
-            name = subproject.name
-            githubRepo = "agorapulse/$rootProject.name"
-        }
-    }
+    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_17
 
     test {
         systemProperty 'TEST_RESOURCES_FOLDER', new File(subproject.projectDir, 'src/test/resources').canonicalPath
