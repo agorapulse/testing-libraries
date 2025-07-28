@@ -33,7 +33,19 @@ buildscript {
     }
 }
 
+plugins {
+    id 'com.gradle.enterprise' version '3.15.1'
+}
+
 apply plugin: 'org.kordamp.gradle.settings'
+
+gradleEnterprise {
+    buildScan {
+        publishAlways()
+        termsOfServiceUrl = "https://gradle.com/terms-of-service"
+        termsOfServiceAgree = "yes"
+    }
+}
 
 projects {
     directories = ['libs', 'docs']
