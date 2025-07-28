@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
  *
- * Copyright 2018-2021 Agorapulse.
+ * Copyright 2018-2025 Agorapulse.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +20,13 @@ plugins {
     id 'org.kordamp.gradle.checkstyle'
     id 'org.kordamp.gradle.codenarc'
     id 'org.kordamp.gradle.coveralls'
-    id 'io.github.gradle-nexus.publish-plugin'
 }
 
-if (!project.hasProperty('ossrhUsername'))      ext.ossrhUsername       = System.getenv('SONATYPE_USERNAME') ?: '**UNDEFINED**'
-if (!project.hasProperty('ossrhPassword'))      ext.ossrhPassword       = System.getenv('SONATYPE_PASSWORD') ?: '**UNDEFINED**'
-if (!project.hasProperty('signingKeyId'))       ext.signingKeyId        = System.getenv('SIGNING_KEY_ID') ?: '**UNDEFINED**'
-if (!project.hasProperty('signingPassword'))    ext.signingPassword     = System.getenv('SIGNING_PASSWORD') ?: '**UNDEFINED**'
-if (!project.hasProperty('signingSecretKey'))   ext.signingSecretKey    = System.getenv('SIGNING_SECRET_KEY_PATH') ? rootProject.file(System.getenv('SIGNING_SECRET_KEY_PATH')).text : '**UNDEFINED**'
+if (!project.hasProperty('mavenCentralUsername'))       ext.mavenCentralUsername            = System.getenv('SONATYPE_USERNAME') ?: '**UNDEFINED**'
+if (!project.hasProperty('mavenCentralPassword'))       ext.mavenCentralPassword            = System.getenv('SONATYPE_PASSWORD') ?: '**UNDEFINED**'
+if (!project.hasProperty('signingInMemoryKeyId'))       ext.signingInMemoryKeyId            = System.getenv('SIGNING_KEY_ID') ?: '**UNDEFINED**'
+if (!project.hasProperty('signingInMemoryKeyPassword')) ext.signingInMemoryKeyPassword      = System.getenv('SIGNING_PASSWORD') ?: '**UNDEFINED**'
+if (!project.hasProperty('signingInMemoryKey'))         ext.signingInMemoryKey              = System.getenv('SIGNING_SECRET_KEY_PATH') ? rootProject.file(System.getenv('SIGNING_SECRET_KEY_PATH')).text : '**UNDEFINED**'
 
 config {
     release = (rootProject.findProperty('release') ?: false).toBoolean()
@@ -74,13 +73,20 @@ config {
     publishing {
         enabled = false
         signing {
-            enabled =  true
-            keyId = signingKeyId
-            secretKey = signingSecretKey
-            password = signingPassword
+            enabled = false
         }
-        releasesRepository  = 'localRelease'
-        snapshotsRepository = 'localSnapshot'
+    }
+
+    artifacts {
+        source {
+            enabled = false
+        }
+    }
+
+    docs {
+        javadoc {
+            enabled = false
+        }
     }
 
     quality {
@@ -110,31 +116,14 @@ allprojects {
     }
 }
 
-nexusPublishing {
-    repositories {
-        sonatype {
-            nexusUrl = uri('https://s01.oss.sonatype.org/service/local/')
-            snapshotRepositoryUrl = uri('https://s01.oss.sonatype.org/content/repositories/snapshots/')
-            username = ossrhUsername
-            password = ossrhPassword
-        }
-    }
-}
-
 subprojects { Project subproject ->
     if (subproject.name == 'guide') return
 
     apply plugin: 'groovy'
+    apply plugin: 'com.vanniktech.maven.publish'
 
     targetCompatibility = JavaVersion.VERSION_1_8
     sourceCompatibility = JavaVersion.VERSION_1_8
-
-    config {
-        bintray {
-            name = subproject.name
-            githubRepo = "agorapulse/$rootProject.name"
-        }
-    }
 
     test {
         systemProperty 'TEST_RESOURCES_FOLDER', new File(subproject.projectDir, 'src/test/resources').canonicalPath
@@ -147,6 +136,42 @@ subprojects { Project subproject ->
     }
 
     clean.dependsOn cleanOut
+
+    mavenPublishing {
+        publishToMavenCentral(true)
+        signAllPublications()
+
+        pom {
+            name = "Agorapulse Testing Libraries"
+            description = 'Set of useful testing libraries'
+            inceptionYear = "2018"
+            url = "https://github.com/agorapulse/testing-libraries"
+            licenses {
+                license {
+                    name = "The Apache License, Version 2.0"
+                    url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                    distribution = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                }
+            }
+            developers {
+                developer {
+                    id = "musketyr"
+                    name = "Vladimir Orany"
+                    url = "https://github.com/musketyr/"
+                }
+            }
+            scm {
+                url = "https://github.com/agorapulse/testing-libraries.git"
+                connection = "scm:git:git://github.com/agorapulse/testing-libraries.git"
+                developerConnection = "scm:git:ssh://git@github.com/agorapulse/testing-libraries.git"
+            }
+        }
+    }
+
+    signing {
+        useInMemoryPgpKeys(rootProject.ext.signingInMemoryKey, rootProject.ext.signingInMemoryKeyPassword)
+        sign publishing.publications
+    }
 }
 
 check.dependsOn('aggregateCheckstyle', 'aggregateCodenarc', 'aggregateAllTestReports', 'coveralls')

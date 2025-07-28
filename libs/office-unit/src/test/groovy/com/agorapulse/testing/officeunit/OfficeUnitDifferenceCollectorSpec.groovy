@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
  *
- * Copyright 2018-2021 Agorapulse.
+ * Copyright 2018-2025 Agorapulse.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,13 +29,16 @@ class OfficeUnitDifferenceCollectorSpec extends Specification {
             InputStream two = Mock(InputStream) {
                 read(*_) >> { throw new IOException() }
             }
-        expect:
+        when:
             OfficeUnitDifferenceCollector.INSTANCE.computeDifferences(
                 '/root',
                 one,
                 two,
                 Collections.emptySet()
             ).size() == 0
+
+        then:
+            thrown(IllegalArgumentException)
     }
 
 }
