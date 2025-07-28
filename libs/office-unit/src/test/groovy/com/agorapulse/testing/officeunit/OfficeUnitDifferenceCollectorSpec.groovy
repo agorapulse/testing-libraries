@@ -29,13 +29,16 @@ class OfficeUnitDifferenceCollectorSpec extends Specification {
             InputStream two = Mock(InputStream) {
                 read(*_) >> { throw new IOException() }
             }
-        expect:
+        when:
             OfficeUnitDifferenceCollector.INSTANCE.computeDifferences(
                 '/root',
                 one,
                 two,
                 Collections.emptySet()
             ).size() == 0
+
+        then:
+            thrown(IllegalArgumentException)
     }
 
 }
