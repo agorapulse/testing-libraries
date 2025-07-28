@@ -40,7 +40,7 @@ Fixt guarantee that the directories are created before the test run so adding ne
 .Gradle
 ----
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
@@ -76,45 +76,6 @@ include::{root-dir}/libs/fixt/src/test/groovy/com/agorapulse/testing/fixt/FixtSp
 <8> Copy whole directory from the test resources
 <9> All thehe files from the fixture directory are available in the new destination
 
-== Grails Job Testing Support
-
-Grails Job Testing Support brings the same trait-based tesing support to jobs created by the http://plugins.grails.org/plugin/grails/quartz[Quartz plugin] as the original
-https://testing.grails.org/]Grails Testing Support]. It provides `JobUnitTest<J>` trait which your specification can implement
-in order to test the job more easily.
-
-=== Installation
-
-[source,indent=0,role="primary",subs='verbatim,attributes']
-.Gradle
-----
-repositories {
-    jcenter()
-}
-
-dependencies {
-    testCompile 'com.agorapulse.testing:grails-job-testing-support:{project-version}'
-}
-----
-
-=== Usage
-
-[source,groovy,indent=0,options="nowrap"]
-.Example Job
-----
-include::{root-dir}/libs/grails-job-testing-support/src/test/groovy/com/agorapulse/testing/grails/job/test/TestJob.groovy[lines=18..-1]
-----
-
-[source,groovy,indent=0,options="nowrap"]
-.Example Specification
-----
-include::{root-dir}/libs/grails-job-testing-support/src/test/groovy/com/agorapulse/testing/grails/job/test/TestJobSpec.groovy[lines=18..-1]
-----
-<1> Implement `JobUnitTest` with the particular job under test
-<2> You can inject any mocks into the job instance
-<3> Trigger the job
-<4> Access the list of configured triggers
-<5> Access the job metadata
-
 == Office Unit
 
 Office Unit is trivial tool for matching Microsoft Office documents. It leverage their nature of
@@ -131,7 +92,7 @@ instead.
 .Gradle
 ----
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
@@ -178,7 +139,7 @@ Set of useful http://spockframework.org/[Spock Framework] extensions.
 .Gradle
 ----
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
