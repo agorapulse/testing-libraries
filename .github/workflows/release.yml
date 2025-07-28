@@ -16,9 +16,6 @@ jobs:
         with:
           java-version: '11'
           distribution: 'zulu'
-      - name: Semantic Version
-        id: version
-        uses: ncipollo/semantic-version-action@v1
       - name: Decode PGP
         id: write_file
         uses: timheuer/base64-to-file@v1
@@ -30,7 +27,7 @@ jobs:
           SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
           SIGNING_SECRET_KEY_PATH: ${{ steps.write_file.outputs.filePath }}
-        run: ./gradlew gitPublishPush publishAndReleaseToMavenCentral "-Pversion=${{ steps.version.outputs.tag }}" -PmavenCentralUsername=${{ secrets.SONATYPE_USERNAME }} -PmavenCentralPassword=${{ secrets.SONATYPE_PASSWORD }} -Prelease=true "-Dorg.ajoberstar.grgit.auth.username=${{ secrets.AGORAPULSE_BOT_PERSONAL_TOKEN }}" --stacktrace
+        run: ./gradlew gitPublishPush publishAndReleaseToMavenCentral "-Pversion=${{ github.ref_name }}" -PmavenCentralUsername=${{ secrets.SONATYPE_USERNAME }} -PmavenCentralPassword=${{ secrets.SONATYPE_PASSWORD }} -Prelease=true "-Dorg.ajoberstar.grgit.auth.username=${{ secrets.AGORAPULSE_BOT_PERSONAL_TOKEN }}" --stacktrace
   ping:
     name: Notify Upstream Repositories
     runs-on: ubuntu-latest
@@ -42,13 +39,10 @@ jobs:
           - agorapulse/agorapulse-oss
     steps:
       - uses: actions/checkout@v4
-      - name: Semantic Version
-        id: version
-        uses: ncipollo/semantic-version-action@v1
       - name: Dispatch to ${{ matrix.repository }}
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.AGORAPULSE_BOT_PERSONAL_TOKEN }}
           repository: ${{ matrix.repository }}
           event-type: ap-new-version-released-event
-          client-payload: '{ "group": "com.agorapulse.testing", "module": "testing-libraries", "version": "${{ steps.version.outputs.tag }}", "property" : "testing.libraries.version", "github" : ${{ toJson(github) }} }'
+          client-payload: '{ "group": "com.agorapulse.testing", "module": "testing-libraries", "version": "${{ github.ref_name }}", "property" : "testing.libraries.version", "github" : ${{ toJson(github) }} }'
