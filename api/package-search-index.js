@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.agorapulse.testing.fixt"},{"l":"com.agorapulse.testing.officeunit"},{"l":"com.agorapulse.testing.spock"}]
