@@ -90,7 +90,7 @@ $(addBlockSwitches);
 <div id="header">
 <h1>Agorapulse Testing Libraries</h1>
 <div class="details">
-<span id="revnumber">version 0.2.3</span>
+<span id="revnumber">version 0.2.4</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -101,25 +101,19 @@ $(addBlockSwitches);
 <li><a href="#_usage">1.2. Usage</a></li>
 </ul>
 </li>
-<li><a href="#_grails_job_testing_support">2. Grails Job Testing Support</a>
+<li><a href="#_office_unit">2. Office Unit</a>
 <ul class="sectlevel2">
 <li><a href="#_installation_2">2.1. Installation</a></li>
 <li><a href="#_usage_2">2.2. Usage</a></li>
 </ul>
 </li>
-<li><a href="#_office_unit">3. Office Unit</a>
+<li><a href="#_spock">3. Spock</a>
 <ul class="sectlevel2">
 <li><a href="#_installation_3">3.1. Installation</a></li>
 <li><a href="#_usage_3">3.2. Usage</a></li>
 </ul>
 </li>
-<li><a href="#_spock">4. Spock</a>
-<ul class="sectlevel2">
-<li><a href="#_installation_4">4.1. Installation</a></li>
-<li><a href="#_usage_4">4.2. Usage</a></li>
-</ul>
-</li>
-<li><a href="#_maintained_by">5. Maintained by</a></li>
+<li><a href="#_maintained_by">4. Maintained by</a></li>
 </ul>
 </div>
 </div>
@@ -190,11 +184,11 @@ using <code>test.resources.folder</code> system property or <code>TEST_RESOURCES
 <div class="title">Gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code>repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
-    testCompile 'com.agorapulse.testing:fixt:0.2.3'
+    testCompile 'com.agorapulse.testing:fixt:0.2.4'
 }</code></pre>
 </div>
 </div>
@@ -204,7 +198,7 @@ dependencies {
 <pre class="prettyprint highlight"><code data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;com.agorapulse.testing&lt;/groupId&gt;
     &lt;artifactId&gt;fixt&lt;/artifactId&gt;
-    &lt;version&gt;0.2.3&lt;/version&gt;
+    &lt;version&gt;0.2.4&lt;/version&gt;
     &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
@@ -326,132 +320,7 @@ class FixtSpec extends Specification {
 </div>
 </div>
 <div class="sect1">
-<h2 id="_grails_job_testing_support"><a class="anchor" href="#_grails_job_testing_support"></a>2. Grails Job Testing Support</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Grails Job Testing Support brings the same trait-based tesing support to jobs created by the <a href="http://plugins.grails.org/plugin/grails/quartz">Quartz plugin</a> as the original
-<a href="https://testing.grails.org/" class="bare">https://testing.grails.org/</a>]Grails Testing Support]. It provides <code>JobUnitTest&lt;J&gt;</code> trait which your specification can implement
-in order to test the job more easily.</p>
-</div>
-<div class="sect2">
-<h3 id="_installation_2"><a class="anchor" href="#_installation_2"></a>2.1. Installation</h3>
-<div class="listingblock primary">
-<div class="title">Gradle</div>
-<div class="content">
-<pre class="prettyprint highlight"><code>repositories {
-    jcenter()
-}
-
-dependencies {
-    testCompile 'com.agorapulse.testing:grails-job-testing-support:0.2.3'
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_usage_2"><a class="anchor" href="#_usage_2"></a>2.2. Usage</h3>
-<div class="listingblock">
-<div class="title">Example Job</div>
-<div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="groovy">package com.agorapulse.testing.grails.job.test
-
-import groovy.transform.CompileDynamic
-
-@CompileDynamic
-@SuppressWarnings([
-    'FieldTypeRequired',
-    'NoDef',
-])
-class TestJob {
-
-    static triggers = {
-        simple name: 'mySimpleTrigger', startDelay: 60000, repeatInterval: 1000
-    }
-
-    static sessionRequired = true
-    static concurrent = true
-    static group = 'MyGroup'
-    static description = 'Example job with Simple Trigger'
-
-    Runnable runnable
-
-    void execute() {
-        runnable.run()
-    }
-
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Example Specification</div>
-<div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="groovy">package com.agorapulse.testing.grails.job.test
-
-import com.agorapulse.testing.grails.job.JobUnitTest
-import org.quartz.SimpleTrigger
-import spock.lang.Specification
-
-@SuppressWarnings('ClassStartsWithBlankLine')
-class TestJobSpec extends Specification implements JobUnitTest&lt;TestJob&gt; {               <i class="conum" data-value="1"></i><b>(1)</b>
-
-    Runnable mock = Mock(Runnable)
-
-    void setup() {
-        job.runnable = mock                                                             <i class="conum" data-value="2"></i><b>(2)</b>
-    }
-
-    void 'test trigger job'() {
-        when:
-            trigger job                                                                 <i class="conum" data-value="3"></i><b>(3)</b>
-        then:
-            noExceptionThrown()
-
-            1 * mock.run()
-    }
-
-    void 'check cofiguration'() {
-        expect:
-            triggers.any {                                                              <i class="conum" data-value="4"></i><b>(4)</b>
-                it instanceof SimpleTrigger &amp;&amp; it.repeatInterval == 1000
-            }
-            jobClass.concurrent                                                         <i class="conum" data-value="5"></i><b>(5)</b>
-            jobClass.sessionRequired
-            jobClass.description == 'Example job with Simple Trigger'
-            jobClass.group == 'MyGroup'
-    }
-
-}</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Implement <code>JobUnitTest</code> with the particular job under test</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>You can inject any mocks into the job instance</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Trigger the job</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Access the list of configured triggers</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>Access the job metadata</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_office_unit"><a class="anchor" href="#_office_unit"></a>3. Office Unit</h2>
+<h2 id="_office_unit"><a class="anchor" href="#_office_unit"></a>2. Office Unit</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Office Unit is trivial tool for matching Microsoft Office documents. It leverage their nature of
@@ -464,16 +333,16 @@ reference file against the newly generated to keep the status quo of the exports
 instead.</p>
 </div>
 <div class="sect2">
-<h3 id="_installation_3"><a class="anchor" href="#_installation_3"></a>3.1. Installation</h3>
+<h3 id="_installation_2"><a class="anchor" href="#_installation_2"></a>2.1. Installation</h3>
 <div class="listingblock primary">
 <div class="title">Gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code>repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
-    testCompile 'com.agorapulse.testing:office-unit:0.2.3'
+    testCompile 'com.agorapulse.testing:office-unit:0.2.4'
 }</code></pre>
 </div>
 </div>
@@ -483,14 +352,14 @@ dependencies {
 <pre class="prettyprint highlight"><code data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;com.agorapulse.testing&lt;/groupId&gt;
     &lt;artifactId&gt;office-unit&lt;/artifactId&gt;
-    &lt;version&gt;0.2.3&lt;/version&gt;
+    &lt;version&gt;0.2.4&lt;/version&gt;
     &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_usage_3"><a class="anchor" href="#_usage_3"></a>3.2. Usage</h3>
+<h3 id="_usage_2"><a class="anchor" href="#_usage_2"></a>2.2. Usage</h3>
 <div class="listingblock">
 <div class="title">Example Specification</div>
 <div class="content">
@@ -554,7 +423,7 @@ void 'ignore some other part'() {
 </div>
 </div>
 <div class="sect1">
-<h2 id="_spock"><a class="anchor" href="#_spock"></a>4. Spock</h2>
+<h2 id="_spock"><a class="anchor" href="#_spock"></a>3. Spock</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Set of useful <a href="http://spockframework.org/">Spock Framework</a> extensions.</p>
@@ -570,16 +439,16 @@ void 'ignore some other part'() {
 </ul>
 </div>
 <div class="sect2">
-<h3 id="_installation_4"><a class="anchor" href="#_installation_4"></a>4.1. Installation</h3>
+<h3 id="_installation_3"><a class="anchor" href="#_installation_3"></a>3.1. Installation</h3>
 <div class="listingblock primary">
 <div class="title">Gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code>repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
-    testCompile 'com.agorapulse.testing:spock:0.2.3'
+    testCompile 'com.agorapulse.testing:spock:0.2.4'
 }</code></pre>
 </div>
 </div>
@@ -589,14 +458,14 @@ dependencies {
 <pre class="prettyprint highlight"><code data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;com.agorapulse.testing&lt;/groupId&gt;
     &lt;artifactId&gt;spock&lt;/artifactId&gt;
-    &lt;version&gt;0.2.3&lt;/version&gt;
+    &lt;version&gt;0.2.4&lt;/version&gt;
     &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_usage_4"><a class="anchor" href="#_usage_4"></a>4.2. Usage</h3>
+<h3 id="_usage_3"><a class="anchor" href="#_usage_3"></a>3.2. Usage</h3>
 <div class="listingblock">
 <div class="title">Detached Specification</div>
 <div class="content">
@@ -684,7 +553,7 @@ class ChildSpec extends ParentSpec {
 </div>
 </div>
 <div class="sect1">
-<h2 id="_maintained_by"><a class="anchor" href="#_maintained_by"></a>5. Maintained by</h2>
+<h2 id="_maintained_by"><a class="anchor" href="#_maintained_by"></a>4. Maintained by</h2>
 <div class="sectionbody">
 <div class="imageblock">
 <div class="content">
@@ -696,8 +565,8 @@ class ChildSpec extends ParentSpec {
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.2.3<br>
-Last updated 2021-12-09 08:30:21 UTC
+Version 0.2.4<br>
+Last updated 2025-07-29 06:58:47 UTC
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
