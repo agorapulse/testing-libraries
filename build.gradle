@@ -16,17 +16,11 @@
  * limitations under the License.
  */
 plugins {
-    id 'com.agorapulse.gradle.aggregate-checkstyle-reports' version '3.0.16'
-    id 'com.agorapulse.gradle.aggregate-codenarc-reports'   version '3.0.16'
-    id 'com.agorapulse.gradle.aggregate-jacoco-reports'     version "${agorapulseGradlePluginsVersion}"
+    id 'lifecycle-base'
     id 'com.agorapulse.gradle.java-common-configuration'    version "${agorapulseGradlePluginsVersion}" apply false
     id 'com.agorapulse.gradle.groovy-common-configuration'  version "${agorapulseGradlePluginsVersion}" apply false
     id 'com.agorapulse.gradle.guide'                        version "${agorapulseGradlePluginsVersion}" apply false
     id 'com.vanniktech.maven.publish'                       version "${mavenCentralPublishPluginVersion}" apply false
-}
-
-codenarc {
-    toolVersion = '3.7.0-groovy-4.0'
 }
 
 if (!project.hasProperty('mavenCentralUsername'))       ext.mavenCentralUsername            = System.getenv('MAVEN_CENTRAL_USERNAME') ?: '**UNDEFINED**'
