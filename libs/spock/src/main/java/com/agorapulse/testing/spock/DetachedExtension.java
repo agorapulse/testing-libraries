@@ -18,13 +18,13 @@
 package com.agorapulse.testing.spock;
 
 import org.spockframework.mock.MockUtil;
-import org.spockframework.runtime.extension.AbstractAnnotationDrivenExtension;
+import org.spockframework.runtime.extension.IAnnotationDrivenExtension;
 import org.spockframework.runtime.extension.IMethodInterceptor;
 import org.spockframework.runtime.extension.IMethodInvocation;
 import org.spockframework.runtime.model.FieldInfo;
 import spock.lang.Specification;
 
-public class DetachedExtension extends AbstractAnnotationDrivenExtension<Detached> {
+public class DetachedExtension implements IAnnotationDrivenExtension<Detached> {
 
     private static final MockUtil MOCK_UTIL = new MockUtil();
 

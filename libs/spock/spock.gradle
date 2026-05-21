@@ -15,7 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+plugins {
+    id 'java-library'
+    id 'groovy'
+    id 'com.agorapulse.gradle.groovy-common-configuration'
+}
+
 dependencies {
-    implementation "org.codehaus.groovy:groovy:${groovyVersion}"
+    implementation "org.apache.groovy:groovy:${groovyVersion}"
     implementation "org.spockframework:spock-core:${spockVersion}"
 }

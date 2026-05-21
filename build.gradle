@@ -16,10 +16,17 @@
  * limitations under the License.
  */
 plugins {
-    id 'org.kordamp.gradle.groovy-project'
-    id 'org.kordamp.gradle.checkstyle'
-    id 'org.kordamp.gradle.codenarc'
-    id 'org.kordamp.gradle.coveralls'
+    id 'com.agorapulse.gradle.aggregate-checkstyle-reports' version '3.0.16'
+    id 'com.agorapulse.gradle.aggregate-codenarc-reports'   version '3.0.16'
+    id 'com.agorapulse.gradle.aggregate-jacoco-reports'     version "${agorapulseGradlePluginsVersion}"
+    id 'com.agorapulse.gradle.java-common-configuration'    version "${agorapulseGradlePluginsVersion}" apply false
+    id 'com.agorapulse.gradle.groovy-common-configuration'  version "${agorapulseGradlePluginsVersion}" apply false
+    id 'com.agorapulse.gradle.guide'                        version "${agorapulseGradlePluginsVersion}" apply false
+    id 'com.vanniktech.maven.publish'                       version "${mavenCentralPublishPluginVersion}" apply false
+}
+
+codenarc {
+    toolVersion = '3.7.0-groovy-4.0'
 }
 
 if (!project.hasProperty('mavenCentralUsername'))       ext.mavenCentralUsername            = System.getenv('MAVEN_CENTRAL_USERNAME') ?: '**UNDEFINED**'
@@ -28,151 +35,66 @@ if (!project.hasProperty('signingInMemoryKeyId'))       ext.signingInMemoryKeyId
 if (!project.hasProperty('signingInMemoryKeyPassword')) ext.signingInMemoryKeyPassword      = System.getenv('SIGNING_PASSWORD') ?: '**UNDEFINED**'
 if (!project.hasProperty('signingInMemoryKey'))         ext.signingInMemoryKey              = System.getenv('SIGNING_SECRET_KEY_PATH') ? rootProject.file(System.getenv('SIGNING_SECRET_KEY_PATH')).text : '**UNDEFINED**'
 
-config {
-    release = (rootProject.findProperty('release') ?: false).toBoolean()
-
-    info {
-        name        = 'Agorapulse Testing Libraries'
-        vendor      = 'Agorapulse'
-        description = 'Set of useful testing libraries'
-
-        links {
-            website      = "https://github.com/${slug}"
-            issueTracker = "https://github.com/${slug}/issues"
-            scm          = "https://github.com/${slug}.git"
-        }
-
-        people {
-            person {
-                id    = 'musketyr'
-                name  = 'Vladimir Orany'
-                roles = ['developer']
-            }
-        }
-
-        repositories {
-            repository {
-                name = 'localRelease'
-                url  = "${project.rootProject.buildDir}/repos/local/release"
-            }
-            repository {
-                name = 'localSnapshot'
-                url  = "${project.rootProject.buildDir}/repos/local/snapshot"
-            }
-        }
-    }
-
-    licensing {
-        licenses {
-            license {
-                id = 'Apache-2.0'
-            }
-        }
-    }
-
-    publishing {
-        enabled = false
-        signing {
-            enabled = false
-        }
-    }
-
-    artifacts {
-        source {
-            // handled by maven central publish plugin
-            enabled = false
-        }
-    }
-
-    quality {
-        checkstyle {
-            toolVersion = '8.27'
-        }
-
-        codenarc {
-            toolVersion = '1.5'
-        }
-    }
-
-    docs {
-        javadoc {
-            // handled by maven central publish plugin
-            enabled = false
-            autoLinks {
-                enabled = false
-            }
-            aggregate {
-                enabled = false
-            }
-        }
-        groovydoc {
-            enabled = false
-            aggregate {
-                enabled = false
-            }
-        }
-    }
-}
-
 allprojects {
     repositories {
         mavenCentral()
-        maven { url "https://repo.spring.io/release"  }
-        maven { url "https://repo.grails.org/grails/core" }
-    }
-
-    license {
-        exclude '**/*.json'
-        exclude '**/*.txt'
-        exclude '***.yml'
-        exclude '**/FixtSpec/*.*'
-        exclude '**/ReferenceClass/*.*'
+        maven { url = 'https://repo.spring.io/release' }
+        maven { url = 'https://repo.grails.org/grails/core' }
     }
 }
 
 subprojects { Project subproject ->
     if (subproject.name == 'guide') return
 
-    apply plugin: 'groovy'
-    apply plugin: 'java-library'
     apply plugin: 'com.vanniktech.maven.publish'
 
-    targetCompatibility = JavaVersion.VERSION_1_8
-    sourceCompatibility = JavaVersion.VERSION_1_8
-
-    test {
-        systemProperty 'TEST_RESOURCES_FOLDER', new File(subproject.projectDir, 'src/test/resources').canonicalPath
-        systemProperty 'user.timezone', 'UTC'
-        systemProperty 'user.language', 'en'
+    plugins.withId('java-base') {
+        tasks.register('cleanOut', Delete) {
+            delete file('out')
+        }
+        tasks.named('clean') {
+            dependsOn 'cleanOut'
+        }
     }
 
-    task cleanOut(type: Delete) {
-        delete file('out')
+    plugins.withId('java') {
+        dependencies {
+            testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+        }
+
+        tasks.withType(Test).configureEach {
+            jvmArgs '--add-opens=java.base/java.util=ALL-UNNAMED',
+                    '--add-opens=java.base/java.lang=ALL-UNNAMED'
+        }
+        afterEvaluate {
+            tasks.withType(Test).configureEach {
+                environment.remove('TEST_RESOURCES_FOLDER')
+            }
+        }
     }
 
-    clean.dependsOn cleanOut
 
     mavenPublishing {
         publishToMavenCentral(true)
         signAllPublications()
 
         pom {
-            name = "Agorapulse Testing Libraries"
+            name = 'Agorapulse Testing Libraries'
             description = 'Set of useful testing libraries'
-            inceptionYear = "2018"
+            inceptionYear = '2018'
             url = "https://github.com/${slug}"
             licenses {
                 license {
-                    name = "The Apache License, Version 2.0"
-                    url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
-                    distribution = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                    name = 'The Apache License, Version 2.0'
+                    url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
                 }
             }
             developers {
                 developer {
-                    id = "musketyr"
-                    name = "Vladimir Orany"
-                    url = "https://github.com/musketyr/"
+                    id = 'musketyr'
+                    name = 'Vladimir Orany'
+                    url = 'https://github.com/musketyr/'
                 }
             }
             scm {
@@ -188,5 +110,3 @@ subprojects { Project subproject ->
         sign publishing.publications
     }
 }
-
-check.dependsOn('aggregateCheckstyle', 'aggregateCodenarc', 'aggregateAllTestReports', 'coveralls')

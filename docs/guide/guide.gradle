@@ -16,18 +16,8 @@
  * limitations under the License.
  */
 plugins {
-    id 'org.kordamp.gradle.guide'
+    id 'com.agorapulse.gradle.guide'
     id 'org.ajoberstar.git-publish'
-}
-
-config {
-    docs {
-        guide {
-            publish {
-                enabled = true
-            }
-        }
-    }
 }
 
 configurations {
@@ -44,10 +34,9 @@ asciidoctor {
     baseDirFollowsSourceDir()
 
     attributes = [
-        'gradle-version': project.gradle.gradleVersion,
+        'gradle-version'    : project.gradle.gradleVersion,
         'source-highlighter': 'prettify',
-        'root-dir': rootDir,
-        'project-slug': slug
+        'root-dir'          : rootDir,
+        'project-slug'      : slug,
     ]
-
 }
