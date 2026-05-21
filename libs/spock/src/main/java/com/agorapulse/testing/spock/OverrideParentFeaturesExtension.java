@@ -17,11 +17,11 @@
  */
 package com.agorapulse.testing.spock;
 
-import org.spockframework.runtime.extension.AbstractAnnotationDrivenExtension;
+import org.spockframework.runtime.extension.IAnnotationDrivenExtension;
 import org.spockframework.runtime.model.FeatureInfo;
 import org.spockframework.runtime.model.SpecInfo;
 
-public class OverrideParentFeaturesExtension extends AbstractAnnotationDrivenExtension<OverrideParentFeatures> {
+public class OverrideParentFeaturesExtension implements IAnnotationDrivenExtension<OverrideParentFeatures> {
 
     @Override
     public void visitSpecAnnotation(OverrideParentFeatures ignore, SpecInfo spec) {

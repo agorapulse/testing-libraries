@@ -15,11 +15,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+plugins {
+    id 'java-library'
+    id 'groovy'
+    id 'com.agorapulse.gradle.java-common-configuration'
+}
 
 dependencies {
-    // required by Groovy plugin
-    compileOnly "org.codehaus.groovy:groovy:${groovyVersion}"
+    compileOnly "org.apache.groovy:groovy:${groovyVersion}"
 
+    testImplementation "org.apache.groovy:groovy:${groovyVersion}"
     testImplementation "org.spockframework:spock-core:${spockVersion}"
+    testImplementation "org.spockframework:spock-junit4:${spockVersion}"
     testImplementation 'com.github.stefanbirkner:system-rules:1.19.0'
 }
