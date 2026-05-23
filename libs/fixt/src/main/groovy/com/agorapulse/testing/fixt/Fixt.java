@@ -75,16 +75,21 @@ public class Fixt {
      */
     public static String getTestResourcesLocation() {
         String testResourcesFolder = FileSystems.getDefault().getPath("src", "test", "resources").toString();
-        for (Map.Entry<Object, Object> property : System.getProperties().entrySet()) {
-            String canonicalKey = property.getKey().toString().replaceAll(IGNORED_CHARACTERS, "");
-            if (canonicalKey.equalsIgnoreCase(TEST_RESOURCES_FOLDER_PROPERTY_NAME) && property.getValue() != null) {
-                testResourcesFolder = property.getValue().toString();
-            }
-        }
+        // Environment variables are read first so that a System.setProperty call from inside
+        // a test (e.g. to redirect writes to a JUnit/Spock @TempDir) takes precedence over
+        // any default TEST_RESOURCES_FOLDER baked into the build (Gradle's
+        // `test.environment(...)`). System properties are the canonical JVM-level override
+        // and need to win.
         for (Map.Entry<String, String> property : System.getenv().entrySet()) {
             String canonicalKey = property.getKey().replaceAll(IGNORED_CHARACTERS, "");
             if (canonicalKey.equalsIgnoreCase(TEST_RESOURCES_FOLDER_PROPERTY_NAME) && property.getValue() != null) {
                 testResourcesFolder = property.getValue();
+            }
+        }
+        for (Map.Entry<Object, Object> property : System.getProperties().entrySet()) {
+            String canonicalKey = property.getKey().toString().replaceAll(IGNORED_CHARACTERS, "");
+            if (canonicalKey.equalsIgnoreCase(TEST_RESOURCES_FOLDER_PROPERTY_NAME) && property.getValue() != null) {
+                testResourcesFolder = property.getValue().toString();
             }
         }
         return testResourcesFolder;
