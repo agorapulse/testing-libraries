@@ -35,5 +35,8 @@ asciidoctor {
         'source-highlighter': 'prettify',
         'root-dir'          : rootDir,
         'project-slug'      : slug,
+        'project-title'     : 'Agorapulse Testing Libraries',
+        'project-version'   : project.version,
+        'project-author'    : 'Agorapulse',
     ]
 }
